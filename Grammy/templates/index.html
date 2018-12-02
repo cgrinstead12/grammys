@@ -207,7 +207,7 @@
                                             <i class="icon fa fa-signal"></i>
                                         </p>
                                         <h4 class="value" id="durationid">
-                                                {{ jsongrammy[0].duration_ms }}
+                                                {{ (jsongrammy[0].duration_ms/60000)|round(2) }}
                                             </h4>
                                         <p class="description">
                                             Song Duration in Minutes</p>
