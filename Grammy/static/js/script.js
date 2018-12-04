@@ -152,7 +152,7 @@
         .attr('x',w/2)
         .attr('dy','.71em')
         .style('text-anchor','end')
-        .text('Grammy Award Year')
+        .text('Grammy Release Year')
 
     // Y-axis
     svg.append('g')
