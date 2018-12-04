@@ -112,17 +112,29 @@
                                           
                                           <div id="svgHere"></div>
                                           <br>
-                                          <h2>Using Spotify API get the 2010-2017 Grammy nomanition songs’ and top Billboard non-nomaited songs’ features and artist features</h2>
+                                          <h2>Spotify Api</h2>
+                                          <p>Utilizing the Spotify API and Genius API, we setup our request for the various features from a list of songs from potential nominees.</p>
+                                          <br>
+                                          <img src="{{ url_for('static', filename='images/mlmodel/ml4.jpg') }}">
+                                          <br> 
+                                          <br>
+                                          <h2>Machine Learning Model</h2>
+                                          <p>With our dataset from 2010-2017 we were ready to train/fit the data to our model.</p>
                                           <br>
                                           <img src="{{ url_for('static', filename='images/mlmodel/ml1.jpg') }}">  
                                           <br>
                                           <br>
-                                          <h2>Getting song lyrics from Genius API</h2>
+                                          <h2>Random Forest Classifier</h2>
+                                          <p>We trained our model using using the Random Forest Classifier. </p>
+                                          <p>We then examined the importance of each feature. </p>
                                           <br>
                                           <img src="{{ url_for('static', filename='images/mlmodel/ml2.jpg') }}">
                                           <br>
                                           <br>
-                                          <h2>Built a Random Forest Model, test score is 0.76</h2>
+                                          <h2>Results</h2>
+                                          <p>With our model trained, we fit a list of songs from 2018 and used the model to predict grammy winners. </p>
+                                          <p>Based on our results, Maroon 5 has a 43% chance to win a Grammy! </p>
+
                                           <br>
                                           <img src="{{ url_for('static', filename='images/mlmodel/ml3.jpg') }}">           
                                              
