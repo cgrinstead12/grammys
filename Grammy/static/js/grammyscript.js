@@ -37,6 +37,10 @@ window.onload = function() {
         var releasetitle = d3.select("#releasetitle")
         var releasetitle1 = d3.select("#releasetitle1")
         var songpopP = d3.select("#poptest");
+        var danceid = d3.select("#danceid");
+        var speechid = d3.select("#speechid");
+        var liveid = d3.select("#liveid");
+        var acousticid = d3.select("#acousticid");
 
 searchBtn.on("click", function(){
     d3.event.preventDefault();
@@ -53,6 +57,11 @@ searchBtn.on("click", function(){
     d3.select("#songnametitle1").text("");
     d3.select("#releasetitle").text("");
     d3.select("#releasetitle1").text("");
+
+    d3.select("#danceid").text("");
+    d3.select("#speechid").text("");
+    d3.select("#liveid").text("");
+    d3.select("#acousticid").text("");
     
     // console.log(artistValue.property("value"))
     var tabledata = data.filter(data => ((data.artist === artistValue.property("value")))).sort((function(a, b){ return b.release_year - a.release_year }));
@@ -64,24 +73,22 @@ searchBtn.on("click", function(){
     songnametitle1.append("p").text(tabledata[0].song_name)
     releasetitle.append("p").text("Release Date: ")
     releasetitle1.append("p").text(tabledata[0].release_date)
-    popid.append("p").text(tabledata[0].Predict_Prob)
+    popid.append("p").text(tabledata[0].artist_popularity)
     loudid.append("p").text(tabledata[0]['features.loudness'])
     uniquewordsid.append("p").text(tabledata[0].lyric_unique_word_count)
     durationid.append("p").text((tabledata[0].duration_ms/60000).toFixed(2))
     artistpopid.append("p").text(tabledata[0].artist_popularity)
     artistfolid.append("p").text(tabledata[0].artist_followers)
-    songpopid.append("p").text(tabledata[0].artist_popularity)
+    songpopid.append("p").text(tabledata[0].Predict_Prob)
+    danceid.append("p").text(tabledata[0]['features.danceability'])
+    speechid.append("p").text(tabledata[0]['features.speechiness'])
+    liveid.append("p").text(tabledata[0]['features.liveness'])
+    acousticid.append("p").text(tabledata[0]['features.acousticness'])
+
     document.getElementById("artistimg").src = tabledata[0].artist_image_url_s;
     });
 
     clearBtn.on("click", function(){
-        // d3.select("#artistsnameduh").text("");
-        // d3.select("#popid").text("");
-        // d3.select("#loudid").text("");
-        // d3.select("#uniquewords").text("");
-        // d3.select("#durationid").text("");
-        // d3.select("#artistpopid").text("");
-        // d3.select("#artistfolid").text("");
         window.location.reload()
         
     });
@@ -103,6 +110,11 @@ searchBtn.on("click", function(){
         d3.select("#releasetitle").text("");
         d3.select("#releasetitle1").text("");
 
+        d3.select("#danceid").text("");
+        d3.select("#speechid").text("");
+        d3.select("#liveid").text("");
+        d3.select("#acousticid").text("");
+
         popvalue1 = popValue.property("value");
         console.log(popvalue1)
         var tabledata = data.filter(data => ((data.Rank == popvalue1)));
@@ -113,14 +125,23 @@ searchBtn.on("click", function(){
         songnametitle1.append("p").text(tabledata[0].song_name)
         releasetitle.append("p").text("Release Date: ")
         releasetitle1.append("p").text(tabledata[0].release_date)
-        popid.append("p").text(tabledata[0].Predict_Prob)
+        popid.append("p").text(tabledata[0].artist_popularity)
         loudid.append("p").text(tabledata[0]['features.loudness'])
         uniquewordsid.append("p").text(tabledata[0].lyric_unique_word_count)
         durationid.append("p").text((tabledata[0].duration_ms/60000).toFixed(2))
         artistpopid.append("p").text(tabledata[0].popularity)
         artistfolid.append("p").text(tabledata[0].artist_followers)
-        songpopid.append("p").text(tabledata[0].artist_popularity)
+        songpopid.append("p").text(tabledata[0].Predict_Prob)
+
+        danceid.append("p").text(tabledata[0]['features.danceability'])
+        speechid.append("p").text(tabledata[0]['features.speechiness'])
+        liveid.append("p").text(tabledata[0]['features.liveness'])
+        acousticid.append("p").text(tabledata[0]['features.acousticness'])
+
         document.getElementById("artistimg").src = tabledata[0].artist_image_url_s;
+
+
+
     });// all you data function in here
         });
 };

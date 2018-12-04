@@ -2,8 +2,6 @@
 <html lang="en">
 <head>
     <title>Dashboard | Grammy Predictions </title>
-    <!-- My lil comment... Here I am! -->
-    <!-- Next comment -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,10 +22,10 @@
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles/zabuto_calendar.min.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles/pace.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles/jquery.news-ticker.css') }}">
+    <link rel="icon" href="http://www.themaxonline.net/wp-content/uploads/2013/12/grammy.jpg">
 </head>
 <body>
     <div>
-
         <!--BEGIN THEME SETTING-->
         <div id="theme-setting">
         </div>
@@ -42,24 +40,17 @@
                 <button type="button" data-toggle="collapse" data-target=".sidebar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
                 <a id="logo" href="/" class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">Grammy Machine Learning Model</span><span style="display: none" class="logo-text-icon">µ</span></a></div>
             <div class="topbar-main"><a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
-                
-                <!-- <form id="topbar-search" action="" method="" class="hidden-sm hidden-xs">
-                    <div class="input-icon right text-white"><a href= "{{ url_for('index') }}"><i class="fa fa-search"></i></a><input type="text" placeholder="Search here..." class="form-control text-white"/></div>
-                </form> -->
-
         </nav>
 
         <div class="form-group">
                 <ul class="list-group" id="filters">
                   <li class="filter list-group-item">
                     <label for="date">Select an Artist Name</label>
-                    <!-- <input class="form-control" id="artistname" type="text" placeholder="Camila Cabello" value="Camila Cabello"> -->
                     <select id="artistname">
                           </select>
                           <br>
                     <label for="rank">Select the Most Popular Ranking</label>
                     <select id="rankselect"></select>
-                    <!-- <input class="form-control" id="poprank" type="integer" placeholder="1" value="100"> -->
                   </li>
                 </li>       
             </ul>
@@ -107,12 +98,12 @@
                     <li class="active"><a href="/"><i class="fa fa-bar-chart-o fa-fw">
                         <div class="icon-bg bg-orange"></div>
                     </i><span class="menu-title">Dashboard</span></a></li>
-                    <li><a href="Layout.html"><i class="fa fa-sitemap fa-fw">
+                    <li><a href="/model_factors"><i class="fa fa-sitemap fa-fw">
                         <div class="icon-bg bg-pink"></div>
                     </i><span class="menu-title">Model Factors</span></a>
                        
                     </li>
-                    <li><a href="UIElements.html"><i class="fa fa-database fa-fw">
+                    <li><a href="/grammys"><i class="fa fa-database fa-fw">
                         <div class="icon-bg bg-green"></div>
                     </i><span class="menu-title">Data</span></a>
                        
@@ -140,8 +131,79 @@
                 </div>
                 <!--END TITLE & BREADCRUMB PAGE-->
                 <!--BEGIN CONTENT-->
+                
                 <div class="page-content">
                     <div id="tab-general">
+                            <div class="row mbl">
+                                    <div class="col-lg-7">
+                                        <div class="panel">
+                                            <div class="panel-body">
+                                                    <iframe src="https://open.spotify.com/embed/user/linxia-xy/playlist/4efFVRadqrlXqsPYY2OUVX" width="620" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mbl">
+                                    <div class="col-lg-5">
+                                        <div class="panel">
+                                            <div class="panel-body">
+                                                <div class="profile">
+                                                    <div style="margin-bottom: 1px" class="row">
+                                                        <div class="col-xs-12 col-sm-6"  >
+                                                            <h3 class="value" id="artistsnameduh">
+                                                                <strong>{{ jsongrammy[0].artist }}</strong>
+                                                            </h3>
+                                                            <h3 class="value" id="songnametitle">
+                                                                    Song Name: 
+                                                            </h3>
+                                                            <h3 class="value" id="songnametitle1">
+                                                                <strong> {{ jsongrammy[0].song_name }}</strong>
+                                                            </h3>
+                                                            <h3 class="value" id="releasetitle">
+                                                                    Release Date: 
+                                                            </h3>
+                                                            <h3 class="value" id="releasetitle1">
+                                                                    <strong>{{ jsongrammy[0].release_date }}</strong>
+                                                            </h3>
+        
+        
+          
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-6 text-center">
+                                                            <figure><img src= "{{ jsongrammy[0].artist_image_url_s }}" id="artistimg" alt="" style="display: inline-block" class="img-responsive img-circle"/>
+                                                            
+                                                        </figure>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center divider">
+                                                    
+                                                        <div class="col-xs-6 col-sm-6 text-center">
+                                                                <h3>
+                                                                 Probability to Win
+                                                                </h3>
+                                                            <h2 class="value" id="songpopid">
+                                                                    <strong>{{ jsongrammy[0].Predict_Prob }}</strong>
+                                                                </h2>
+                                                            </div> 
+                                                            <div class="col-xs-6 col-sm-6 text-center">
+                                                                <h3>
+                                                                 Artist Followers 
+                                                                </h3>
+                                                            <h2 class="value" id="artistfolid">
+                                                                    <strong>{{ jsongrammy[0].artist_followers }}</strong>
+                                                                </h2>
+
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                        <!-- Begin Data  -->
                         <div id="sum_box" class="row mbl">
                             <div class="col-sm-6 col-md-3">
                                 <div class="panel profit db mbm">
@@ -150,10 +212,10 @@
                                             <i class="icon fa fa-group"></i>
                                         </p>
                                         <h4 class="value" id="popid">
-                                                {{ jsongrammy[0].Predict_Prob }}
+                                                {{ jsongrammy[0].popularity }}
                                            </h4>
                                         <p class="description">
-                                            Probability to Win</p>
+                                            Song Popularity</p>
                                         <div class="progress progress-sm mbn">
                                             <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
                                                 style="width: 100%;" class="progress-bar progress-bar-success">
@@ -175,7 +237,7 @@
                                             Loudness</p>
                                         <div class="progress progress-sm mbn">
                                             <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
-                                                style="width: 100%;" class="progress-bar progress-bar-info">
+                                                style="width: 100%;" class="progress-bar progress-bar-success">
                                                 <span class="sr-only">100% Complete (success)</span></div>
                                         </div>
                                     </div>
@@ -194,7 +256,7 @@
                                             Total Unique Word Count</p>
                                         <div class="progress progress-sm mbn">
                                             <div role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                                style="width: 100%;" class="progress-bar progress-bar-danger">
+                                                style="width: 100%;" class="progress-bar progress-bar-success">
                                                 <span class="sr-only">100% Complete (success)</span></div>
                                         </div>
                                     </div>
@@ -207,151 +269,106 @@
                                             <i class="icon fa fa-signal"></i>
                                         </p>
                                         <h4 class="value" id="durationid">
-                                                {{ jsongrammy[0].duration_ms }}
+                                                {{ jsongrammy[0].duration_ms/60000 }}
                                             </h4>
                                         <p class="description">
-                                            Song Duration in ms</p>
+                                            Song Duration in Minutes</p>
                                         <div class="progress progress-sm mbn">
                                             <div role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
-                                                style="width: 100%;" class="progress-bar progress-bar-warning">
+                                                style="width: 100%;" class="progress-bar progress-bar-success">
                                                 <span class="sr-only">100% Complete (success)</span></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="row mbl">
-                            <div class="col-lg-7">
-                                <div class="panel">
-                                    <div class="panel-body">
-                                            <iframe src="https://open.spotify.com/embed/user/linxia-xy/playlist/4efFVRadqrlXqsPYY2OUVX" width="620" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                                        <!-- <div class="row">
-                                            <div class="col-md-7">
-                                            <iframe src="https://open.spotify.com/embed/user/linxia-xy/playlist/4efFVRadqrlXqsPYY2OUVX" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                                                <h4 class="mbs">
-                                                    Network Performance</h4>
-                                                <p class="help-block">
-                                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem...</p>
-                                                <div id="area-chart-spline" style="width: 100%; height: 300px">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <h4 class="mbm">
-                                                    Server Status</h4>
-                                                <span class="task-item">CPU Usage (25 - 32 cpus)<small class="pull-right text-muted">40%</small><div
-                                                    class="progress progress-sm">
-                                                    <div role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                                        style="width: 40%;" class="progress-bar progress-bar-orange">
-                                                        <span class="sr-only">40% Complete (success)</span></div>
-                                                </div>
-                                                </span><span>Memory Usage (2.5GB)<small class="pull-right text-muted">60%</small><div
-                                                    class="progress progress-sm">
-                                                    <div role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                                        style="width: 60%;" class="progress-bar progress-bar-blue">
-                                                        <span class="sr-only">60% Complete (success)</span></div>
-                                                </div>
-                                                </span><span>Disk Usage (C:\ 120GB , D:\ 430GB)<small class="pull-right text-muted">55%</small><div
-                                                    class="progress progress-sm">
-                                                    <div role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"
-                                                        style="width: 55%;" class="progress-bar progress-bar-green">
-                                                        <span class="sr-only">55% Complete (success)</span></div>
-                                                </div>
-                                                </span><span>Domain (2/5)<small class="pull-right text-muted">66%</small><div class="progress progress-sm">
-                                                    <div role="progressbar" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"
-                                                        style="width: 66%;" class="progress-bar progress-bar-yellow">
-                                                        <span class="sr-only">66% Complete (success)</span></div>
-                                                </div>
-                                                </span><span>Database (90/100)<small class="pull-right text-muted">90%</small><div
-                                                    class="progress progress-sm">
-                                                    <div role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"
-                                                        style="width: 90%;" class="progress-bar progress-bar-pink">
-                                                        <span class="sr-only">90% Complete (success)</span></div>
-                                                </div>
-                                                </span><span>Email Account (25/50)<small class="pull-right text-muted">50%</small><div
-                                                    class="progress progress-sm">
-                                                    <div role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                                        style="width: 50%;" class="progress-bar progress-bar-violet">
-                                                        <span class="sr-only">50% Complete (success)</span></div>
-                                                </div>
-                                                </span>
-                                            </div>
-                                        
-                                    </div> -->
+
+                        <!-- Start of Second Row of Data -->
+                        <div id="tab-general">
+                            <div id="sum_box" class="row mbl">
+                        <div class="col-sm-6 col-md-3">
+                            <div class="panel profit db mbm">
+                                <div class="panel-body">
+                                    <p class="icon">
+                                        <i class="icon fa fa-signal"></i>
+                                    </p>
+                                    <!-- CHANGE ID HERE -->
+                                    <h4 class="value" id="acousticid"> 
+                                            {{ jsongrammy[0]['features.acousticness'] }}
+                                       </h4>
+                                    <p class="description">
+                                        Acousticness</p>
+                                    <div class="progress progress-sm mbn">
+                                        <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                            style="width: 100%;" class="progress-bar progress-bar-success">
+                                            <span class="sr-only">100% Complete (success)</span></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row mbl">
-                            <div class="col-lg-5">
-                                <div class="panel">
-                                    <div class="panel-body">
-                                        <div class="profile">
-                                            <div style="margin-bottom: 15px" class="row">
-                                                <div class="col-xs-12 col-sm-6"  >
-                                                    <h3 class="value" id="artistsnameduh" style="color : darkgray;">
-                                                        <strong>{{ jsongrammy[0].artist }}</strong>
-                                                    </h3>
-                                                    <h3 class="value" id="songnametitle">
-                                                            Song Name: 
-                                                    </h3>
-                                                    <h3 class="value" id="songnametitle1">
-                                                        <strong> {{ jsongrammy[0].song_name }}</strong>
-                                                    </h3>
-                                                    <h3 class="value" id="releasetitle">
-                                                            Release Date: 
-                                                    </h3>
-                                                    <h3 class="value" id="releasetitle1">
-                                                            <strong>{{ jsongrammy[0].release_date }}</strong>
-                                                    </h3>
-
-
-  
-                                                </div>
-                                                <div class="col-xs-12 col-sm-6 text-center">
-                                                    <figure><img src= "{{ jsongrammy[0].artist_image_url_s }}" id="artistimg" alt="" style="display: inline-block" class="img-responsive img-circle"/>
-                                                    
-                                                </figure>
-                                                </div>
-                                            </div>
-                                            <div class="row text-center divider">
-                                            
-                                                <div class="col-xs-6 col-sm-6 text-center">
-                                                        <h3>
-                                                         Song Popularity 
-                                                        </h3>
-                                                    <h2 class="value" id="songpopid">
-                                                            <strong>{{ jsongrammy[0].popularity }}</strong>
-                                                        </h2>
-                                                    </div> 
-                                                    <div class="col-xs-6 col-sm-6 text-center">
-                                                        <h3>
-                                                         Artist Followers 
-                                                        </h3>
-                                                    <h2 class="value" id="artistfolid">
-                                                            <strong>{{ jsongrammy[0].artist_followers }}</strong>
-                                                        </h2>
-                                                    
-                                               
-                                                        <!-- <ul role="menu" class="dropdown-menu pull-right text-left">
-                                                            <li><a href="#"><span class="fa fa-envelope"></span>&nbsp; Send an email</a></li>
-                                                            <li><a href="#"><span class="fa fa-list"></span>&nbsp; Add or remove from a list</a></li>
-                                                            <li class="divider"></li>
-                                                            <li><a href="#"><span class="fa fa-warning"></span>&nbsp; Report this user for spam</a></li>
-                                                            <li class="divider"></li>
-                                                            <li><a href="#" role="button" class="btn disabled">Unfollow</a></li>
-                                                        </ul> -->
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="panel income db mbm">
+                                <div class="panel-body">
+                                    <p class="icon">
+                                        <i class="icon fa fa-signal"></i>
+                                    </p>
+                                    <h4 class="value" id="liveid">
+                                            {{ jsongrammy[0]['features.liveness'] }}
+                                        </h4>
+                                    <p class="description">
+                                        Liveness</p>
+                                    <div class="progress progress-sm mbn">
+                                        <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                            style="width: 100%;" class="progress-bar progress-bar-success">
+                                            <span class="sr-only">100% Complete (success)</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="panel task db mbm">
+                                <div class="panel-body">
+                                    <p class="icon">
+                                        <i class="icon fa fa-signal"></i>
+                                    </p>
+                                    <h4 class="value" id="speechid">
+                                            {{ jsongrammy[0]['features.speechiness'] }}
+                                        </h4>
+                                    <p class="description">
+                                        Speechiness</p>
+                                    <div class="progress progress-sm mbn">
+                                        <div role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                            style="width: 100%;" class="progress-bar progress-bar-success">
+                                            <span class="sr-only">100% Complete (success)</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="panel visit db mbm">
+                                <div class="panel-body">
+                                    <p class="icon">
+                                        <i class="icon fa fa-signal"></i>
+                                    </p>
+                                    <h4 class="value" id="danceid">
+                                            {{ jsongrammy[0]['features.danceability'] }}
+                                        </h4>
+                                    <p class="description">
+                                        Danceability</p>
+                                    <div class="progress progress-sm mbn">
+                                        <div role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+                                            style="width: 100%;" class="progress-bar progress-bar-success">
+                                            <span class="sr-only">100% Complete (success)</span></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
+            </div>
+        </div>
+                        <!-- END OF SECOND ROW -->
+                        
                 <!--END CONTENT-->
                 <!--BEGIN FOOTER-->
                 <p>--Created By Charles Grinstead, Xiyue Deng, and Tyler Locke - Trilogy Data Analytics Bootcamp 2018--</p>
@@ -362,7 +379,7 @@
             
         </div>
     </div>
-    
+    <!-- Scripts Section -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
     <script src="static/script/jquery-3.3.1.min.js"></script>
     <script src="{{ url_for('static', filename='js/data.js') }}"></script>
@@ -375,15 +392,12 @@
     <script src="{{ url_for('static', filename='script/html5shiv.js') }}"></script>
     <script src="{{ url_for('static', filename='script/respond.min.js') }}"></script>
     <script src="{{ url_for('static', filename='script/jquery.metisMenu.js') }}"></script>
-
     <script src="{{ url_for('static', filename='script/jquery.slimscroll.js') }}"></script>
     <script src="{{ url_for('static', filename='script/jquery.cookie.js') }}"></script>
     <script src="{{ url_for('static', filename='script/icheck.min.js') }}"></script>
     <script src="{{ url_for('static', filename='script/custom.min.js') }}"></script>
     <script src="{{ url_for('static', filename='script/jquery.news-ticker.js') }}"></script>
-
     <script src="{{ url_for('static', filename='script/jquery.menu.js') }}"></script>
-
     <script src="{{ url_for('static', filename='script/holder.js') }}"></script>
     <script src="{{ url_for('static', filename='script/responsive-tabs.js') }}"></script>
     <script src="{{ url_for('static', filename='script/jquery.flot.js') }}"></script>

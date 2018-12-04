@@ -22,8 +22,6 @@ from datetime import datetime as dt
 from pymongo import MongoClient
 from flask_pymongo import PyMongo
 
-# app = Flask(__name__, static_folder='../static/', template_folder='templates/')
-
 app = Flask(__name__)
 print(app)
 url = 'mongodb://g1:g123456@ds119223.mlab.com:19223/grammydb'
@@ -181,6 +179,11 @@ def returnRoutes():
        }
       )
   return jsonify(jsongrammy_1)  
+
+@app.route('/model_factors')
+def model_factors():
+  
+  return render_template('charts.html')
 
 if __name__ == "__main__":
   app.run(debug=True)
