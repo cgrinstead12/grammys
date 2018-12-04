@@ -185,5 +185,10 @@ def model_factors():
   
   return render_template('charts.html')
 
+@app.route('/data')
+def data_factors():
+  
+  return render_template('data.html')
+
 if __name__ == "__main__":
   app.run(debug=True)

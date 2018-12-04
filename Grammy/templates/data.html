@@ -1,0 +1,4764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard | Grammy Predictions </title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/icons/favicon.ico') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/icons/favicon.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ url_for('static', filename='images/icons/favicon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ url_for('static', filename='images/icons/favicon-114x114.png') }}">
+    <!--Loading bootstrap css-->
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles/jquery-ui-1.10.4.custom.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles/font-awesome.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles/bootstrap.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles/animate.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles/all.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles/style-responsive.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles/zabuto_calendar.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles/pace.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles/jquery.news-ticker.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+    <link rel="icon" href="http://www.themaxonline.net/wp-content/uploads/2013/12/grammy.jpg">
+    <style>
+            table {
+                border-collapse: collapse;
+                border-spacing: 0;
+                width: 100%;
+                border: 1px solid #ddd;
+            }
+            
+            th, td {
+                text-align: left;
+                padding: 8px;
+            }
+            
+            tr:nth-child(even){background-color: #f2f2f2}
+    </style>
+</head>
+<body>
+    <div>
+        <!--BEGIN THEME SETTING-->
+        <div id="theme-setting">
+        </div>
+        <!--END THEME SETTING-->
+        <!--BEGIN BACK TO TOP-->
+        <a id="totop" href="#"><i class="fa fa-angle-up"></i></a>
+        <!--END BACK TO TOP-->
+        <!--BEGIN TOPBAR-->
+        <div id="header-topbar-option-demo" class="page-header-topbar">
+            <nav id="topbar" role="navigation" style="margin-bottom: 0;" data-step="3" class="navbar navbar-default navbar-static-top">
+            <div class="navbar-header">
+                <button type="button" data-toggle="collapse" data-target=".sidebar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                <a id="logo" href="/" class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">Grammy Machine Learning Model</span><span style="display: none" class="logo-text-icon">µ</span></a></div>
+            <div class="topbar-main"><a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
+        </nav>
+
+        </div>
+            <!--BEGIN MODAL CONFIG PORTLET-->
+            <div id="modal-config" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" data-dismiss="modal" aria-hidden="true" class="close">
+                                &times;</button>
+                            <h4 class="modal-title">
+                                Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                   Data</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn btn-default">
+                                Close</button>
+                            <button type="button" class="btn btn-primary">
+                                Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--END MODAL CONFIG PORTLET-->
+        </div>
+        <!--END TOPBAR-->
+        <div id="wrapper">
+            <!--BEGIN SIDEBAR MENU-->
+            <nav id="sidebar" role="navigation" data-step="2" data-intro="Template has &lt;b&gt;many navigation styles&lt;/b&gt;"
+                data-position="right" class="navbar-default navbar-static-side">
+            <div class="sidebar-collapse menu-scroll">
+                <ul id="side-menu" class="nav">
+                    
+                     <div class="clearfix"></div>
+                    <li class="active"><a href="/"><i class="fa fa-bar-chart-o fa-fw">
+                        <div class="icon-bg bg-orange"></div>
+                    </i><span class="menu-title">Dashboard</span></a></li>
+                    <li><a href="/model_factors"><i class="fa fa-sitemap fa-fw">
+                        <div class="icon-bg bg-pink"></div>
+                    </i><span class="menu-title">Model Factors</span></a>
+                       
+                    </li>
+                    <li><a href="/data"><i class="fa fa-database fa-fw">
+                        <div class="icon-bg bg-green"></div>
+                    </i><span class="menu-title">Data</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+            <!--END SIDEBAR MENU-->
+            <!--BEGIN PAGE WRAPPER-->
+            <div id="page-wrapper">
+                    <tbody></tbody>
+                <!--BEGIN TITLE & BREADCRUMB PAGE-->
+                <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+                    <div class="page-header pull-left">
+                        <div class="page-title">
+                            Grammy Nomination Predictions Data Table</div>
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li><i class="fa fa-home"></i>&nbsp;<a href="/">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="hidden"><a href="#">Dashboard</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="active">Dashboard</li>
+                    </ol>
+                    <div class="clearfix">
+                    </div>
+                </div>
+                <!--END TITLE & BREADCRUMB PAGE-->
+                <!--BEGIN CONTENT-->
+
+<div style="overflow-x:auto;">                                                   
+<table>
+<thead><tr><th title="Field #1">artist</th>
+<th title="Field #2">artist_followers</th>
+<th title="Field #3">artist_popularity</th>
+<th title="Field #4">duration_ms</th>
+<th title="Field #5">acousticness</th>
+<th title="Field #6">analysis_url</th>
+<th title="Field #7">danceability</th>
+<th title="Field #8">duration_ms.1</th>
+<th title="Field #9">energy</th>
+<th title="Field #10">id</th>
+<th title="Field #11">instrumentalness</th>
+<th title="Field #12">key</th>
+<th title="Field #13">liveness</th>
+<th title="Field #14">loudness</th>
+<th title="Field #15">mode</th>
+<th title="Field #16">speechiness</th>
+<th title="Field #17">tempo</th>
+<th title="Field #18">time_signature</th>
+<th title="Field #19">track_href</th>
+<th title="Field #20">type</th>
+<th title="Field #21">uri</th>
+<th title="Field #22">valence</th>
+<th title="Field #23">lyric_total_word_count</th>
+<th title="Field #24">lyric_unique_word_count</th>
+<th title="Field #25">popularity</th>
+<th title="Field #26">release_date</th>
+<th title="Field #27">release_year</th>
+<th title="Field #28">song_id</th>
+<th title="Field #29">song_name</th>
+<th title="Field #30">track</th>
+<th title="Field #31">Predict_Prob</th>
+</tr></thead>
+<tbody><tr>
+<td>Camila Cabello</td>
+<td align="right">7359790</td>
+<td align="right">88</td>
+<td align="right">217306</td>
+<td align="right">0.184</td>
+<td>https://api.spotify.com/v1/audio-analysis/1rfofaqEpACxVEHIZBJe6W</td>
+<td align="right">0.765</td>
+<td align="right">217307</td>
+<td align="right">0.523</td>
+<td>1rfofaqEpACxVEHIZBJe6W</td>
+<td align="right">3.56E-05</td>
+<td align="right">2</td>
+<td align="right">0.132</td>
+<td align="right">-4.333</td>
+<td>1</td>
+<td align="right">0.03</td>
+<td align="right">104.988</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/1rfofaqEpACxVEHIZBJe6W</td>
+<td>audio_features</td>
+<td>spotify:track:1rfofaqEpACxVEHIZBJe6W</td>
+<td align="right">0.394</td>
+<td align="right">626</td>
+<td align="right">180</td>
+<td align="right">87</td>
+<td>1/12/2018</td>
+<td align="right">2018</td>
+<td>1rfofaqEpACxVEHIZBJe6W</td>
+<td>Havana</td>
+<td>Havana</td>
+<td align="right">0.665</td>
+</tr>
+<tr>
+<td>G-Eazy</td>
+<td align="right">3555960</td>
+<td align="right">86</td>
+<td align="right">245386</td>
+<td align="right">0.0117</td>
+<td>https://api.spotify.com/v1/audio-analysis/2Xqd0wUttjueBfdcltADOv</td>
+<td align="right">0.838</td>
+<td align="right">245387</td>
+<td align="right">0.771</td>
+<td>2Xqd0wUttjueBfdcltADOv</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.0853</td>
+<td align="right">-3.791</td>
+<td>1</td>
+<td align="right">0.244</td>
+<td align="right">175.957</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/2Xqd0wUttjueBfdcltADOv</td>
+<td>audio_features</td>
+<td>spotify:track:2Xqd0wUttjueBfdcltADOv</td>
+<td align="right">0.405</td>
+<td align="right">990</td>
+<td align="right">252</td>
+<td align="right">77</td>
+<td>9/7/2017</td>
+<td align="right">2017</td>
+<td>2Xqd0wUttjueBfdcltADOv</td>
+<td>No Limit</td>
+<td>No Limit</td>
+<td align="right">0.18</td>
+</tr>
+<tr>
+<td>Halsey</td>
+<td align="right">4372908</td>
+<td align="right">91</td>
+<td align="right">181279</td>
+<td align="right">0.0604</td>
+<td>https://api.spotify.com/v1/audio-analysis/7y9iMe8SOB6z3NoHE2OfXl</td>
+<td align="right">0.675</td>
+<td align="right">181279</td>
+<td align="right">0.751</td>
+<td>7y9iMe8SOB6z3NoHE2OfXl</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0.0893</td>
+<td align="right">-3.539</td>
+<td>1</td>
+<td align="right">0.0296</td>
+<td align="right">118.384</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/7y9iMe8SOB6z3NoHE2OfXl</td>
+<td>audio_features</td>
+<td>spotify:track:7y9iMe8SOB6z3NoHE2OfXl</td>
+<td align="right">0.612</td>
+<td align="right">524</td>
+<td align="right">150</td>
+<td align="right">79</td>
+<td>6/2/2017</td>
+<td align="right">2017</td>
+<td>7y9iMe8SOB6z3NoHE2OfXl</td>
+<td>Bad at Love</td>
+<td>Bad At Love</td>
+<td align="right">0.195</td>
+</tr>
+<tr>
+<td>Panic! At The Disco</td>
+<td align="right">5397719</td>
+<td align="right">88</td>
+<td align="right">190946</td>
+<td align="right">0.193</td>
+<td>https://api.spotify.com/v1/audio-analysis/1rqqCSm0Qe4I9rUvWncaom</td>
+<td align="right">0.579</td>
+<td align="right">190947</td>
+<td align="right">0.904</td>
+<td>1rqqCSm0Qe4I9rUvWncaom</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.064</td>
+<td align="right">-2.729</td>
+<td>1</td>
+<td align="right">0.0618</td>
+<td align="right">82.014</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/1rqqCSm0Qe4I9rUvWncaom</td>
+<td>audio_features</td>
+<td>spotify:track:1rqqCSm0Qe4I9rUvWncaom</td>
+<td align="right">0.681</td>
+<td align="right">544</td>
+<td align="right">124</td>
+<td align="right">90</td>
+<td>6/22/2018</td>
+<td align="right">2018</td>
+<td>1rqqCSm0Qe4I9rUvWncaom</td>
+<td>High Hopes</td>
+<td>High Hopes</td>
+<td align="right">0.73</td>
+</tr>
+<tr>
+<td>Ariana Grande</td>
+<td align="right">20732435</td>
+<td align="right">96</td>
+<td align="right">207333</td>
+<td align="right">0.28</td>
+<td>https://api.spotify.com/v1/audio-analysis/2rPE9A1vEgShuZxxzR2tZH</td>
+<td align="right">0.724</td>
+<td align="right">207333</td>
+<td align="right">0.647</td>
+<td>2rPE9A1vEgShuZxxzR2tZH</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.102</td>
+<td align="right">-5.642</td>
+<td>1</td>
+<td align="right">0.0658</td>
+<td align="right">106.96</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/2rPE9A1vEgShuZxxzR2tZH</td>
+<td>audio_features</td>
+<td>spotify:track:2rPE9A1vEgShuZxxzR2tZH</td>
+<td align="right">0.435</td>
+<td align="right">586</td>
+<td align="right">175</td>
+<td align="right">100</td>
+<td>11/3/2018</td>
+<td align="right">2018</td>
+<td>2rPE9A1vEgShuZxxzR2tZH</td>
+<td>Thank U, Next</td>
+<td>thank u, next</td>
+<td align="right">0.765</td>
+</tr>
+<tr>
+<td>Halsey</td>
+<td align="right">4372908</td>
+<td align="right">91</td>
+<td align="right">201660</td>
+<td align="right">0.297</td>
+<td>https://api.spotify.com/v1/audio-analysis/5p7ujcrUXASCNwRaWNHR1C</td>
+<td align="right">0.752</td>
+<td align="right">201661</td>
+<td align="right">0.488</td>
+<td>5p7ujcrUXASCNwRaWNHR1C</td>
+<td align="right">9.11E-06</td>
+<td align="right">6</td>
+<td align="right">0.0936</td>
+<td align="right">-7.05</td>
+<td>1</td>
+<td align="right">0.0705</td>
+<td align="right">136.041</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/5p7ujcrUXASCNwRaWNHR1C</td>
+<td>audio_features</td>
+<td>spotify:track:5p7ujcrUXASCNwRaWNHR1C</td>
+<td align="right">0.533</td>
+<td align="right">510</td>
+<td align="right">142</td>
+<td align="right">96</td>
+<td>10/4/2018</td>
+<td align="right">2018</td>
+<td>5p7ujcrUXASCNwRaWNHR1C</td>
+<td>Without Me</td>
+<td>Without Me</td>
+<td align="right">0.685</td>
+</tr>
+<tr>
+<td>Sheck Wes</td>
+<td align="right">183535</td>
+<td align="right">83</td>
+<td align="right">183906</td>
+<td align="right">0.194</td>
+<td>https://api.spotify.com/v1/audio-analysis/1xzBco0xcoJEDXktl7Jxrr</td>
+<td align="right">0.729</td>
+<td align="right">183907</td>
+<td align="right">0.625</td>
+<td>1xzBco0xcoJEDXktl7Jxrr</td>
+<td align="right">0.00986</td>
+<td align="right">4</td>
+<td align="right">0.248</td>
+<td align="right">-5.266</td>
+<td>1</td>
+<td align="right">0.0315</td>
+<td align="right">146.034</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/1xzBco0xcoJEDXktl7Jxrr</td>
+<td>audio_features</td>
+<td>spotify:track:1xzBco0xcoJEDXktl7Jxrr</td>
+<td align="right">0.261</td>
+<td align="right">417</td>
+<td align="right">166</td>
+<td align="right">93</td>
+<td>10/5/2018</td>
+<td align="right">2018</td>
+<td>1xzBco0xcoJEDXktl7Jxrr</td>
+<td>Mo Bamba</td>
+<td>Mo Bamba</td>
+<td align="right">0.68</td>
+</tr>
+<tr>
+<td>Kodak Black</td>
+<td align="right">3886241</td>
+<td align="right">91</td>
+<td align="right">228653</td>
+<td align="right">0.071</td>
+<td>https://api.spotify.com/v1/audio-analysis/7l3E7lcozEodtVsSTCkcaA</td>
+<td align="right">0.826</td>
+<td align="right">225199</td>
+<td align="right">0.615</td>
+<td>7l3E7lcozEodtVsSTCkcaA</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.0965</td>
+<td align="right">-7.979</td>
+<td>0</td>
+<td align="right">0.219</td>
+<td align="right">98.056</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/7l3E7lcozEodtVsSTCkcaA</td>
+<td>audio_features</td>
+<td>spotify:track:7l3E7lcozEodtVsSTCkcaA</td>
+<td align="right">0.543</td>
+<td align="right">613</td>
+<td align="right">412</td>
+<td align="right">95</td>
+<td>10/12/2018</td>
+<td align="right">2018</td>
+<td>7l3E7lcozEodtVsSTCkcaA</td>
+<td>Zeze</td>
+<td>ZEZE (feat. Travis Scott &amp; Offset)</td>
+<td align="right">0.715</td>
+</tr>
+<tr>
+<td>Bad Bunny</td>
+<td align="right">9481969</td>
+<td align="right">95</td>
+<td align="right">210367</td>
+<td align="right">0.0141</td>
+<td>https://api.spotify.com/v1/audio-analysis/116H0KvKr2Zl4RPuVBruDO</td>
+<td align="right">0.817</td>
+<td align="right">210368</td>
+<td align="right">0.539</td>
+<td>116H0KvKr2Zl4RPuVBruDO</td>
+<td align="right">0.000496</td>
+<td align="right">6</td>
+<td align="right">0.099</td>
+<td align="right">-6.349</td>
+<td>0</td>
+<td align="right">0.0621</td>
+<td align="right">97.062</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/116H0KvKr2Zl4RPuVBruDO</td>
+<td>audio_features</td>
+<td>spotify:track:116H0KvKr2Zl4RPuVBruDO</td>
+<td align="right">0.158</td>
+<td align="right">613</td>
+<td align="right">412</td>
+<td align="right">97</td>
+<td>10/11/2018</td>
+<td align="right">2018</td>
+<td>116H0KvKr2Zl4RPuVBruDO</td>
+<td>Mia</td>
+<td>MIA (feat. Drake)</td>
+<td align="right">0.705</td>
+</tr>
+<tr>
+<td>Lil Baby</td>
+<td align="right">1000897</td>
+<td align="right">91</td>
+<td align="right">145603</td>
+<td align="right">0.0945</td>
+<td>https://api.spotify.com/v1/audio-analysis/1BxkZE73h9BN3qwuA15TA3</td>
+<td align="right">0.9</td>
+<td align="right">145603</td>
+<td align="right">0.653</td>
+<td>1BxkZE73h9BN3qwuA15TA3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.528</td>
+<td align="right">-6.962</td>
+<td>0</td>
+<td align="right">0.289</td>
+<td align="right">112.503</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/1BxkZE73h9BN3qwuA15TA3</td>
+<td>audio_features</td>
+<td>spotify:track:1BxkZE73h9BN3qwuA15TA3</td>
+<td align="right">0.399</td>
+<td align="right">657</td>
+<td align="right">192</td>
+<td align="right">90</td>
+<td>9/12/2018</td>
+<td align="right">2018</td>
+<td>1BxkZE73h9BN3qwuA15TA3</td>
+<td>Drip Too Hard</td>
+<td>Drip Too Hard</td>
+<td align="right">0.74</td>
+</tr>
+<tr>
+<td>Lady Gaga</td>
+<td align="right">6046162</td>
+<td align="right">93</td>
+<td align="right">215733</td>
+<td align="right">0.371</td>
+<td>https://api.spotify.com/v1/audio-analysis/2VxeLyX666F8uXCJ0dZF8B</td>
+<td align="right">0.572</td>
+<td align="right">215733</td>
+<td align="right">0.385</td>
+<td>2VxeLyX666F8uXCJ0dZF8B</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.231</td>
+<td align="right">-6.362</td>
+<td>1</td>
+<td align="right">0.0308</td>
+<td align="right">95.799</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/2VxeLyX666F8uXCJ0dZF8B</td>
+<td>audio_features</td>
+<td>spotify:track:2VxeLyX666F8uXCJ0dZF8B</td>
+<td align="right">0.323</td>
+<td align="right">274</td>
+<td align="right">102</td>
+<td align="right">92</td>
+<td>10/5/2018</td>
+<td align="right">2018</td>
+<td>2VxeLyX666F8uXCJ0dZF8B</td>
+<td>Shallow</td>
+<td>Shallow</td>
+<td align="right">0.695</td>
+</tr>
+<tr>
+<td>Marshmello</td>
+<td align="right">6694178</td>
+<td align="right">90</td>
+<td align="right">214289</td>
+<td align="right">0.191</td>
+<td>https://api.spotify.com/v1/audio-analysis/2dpaYNEQHiRxtZbfNsse99</td>
+<td align="right">0.687</td>
+<td align="right">214290</td>
+<td align="right">0.792</td>
+<td>2dpaYNEQHiRxtZbfNsse99</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.167</td>
+<td align="right">-2.749</td>
+<td>1</td>
+<td align="right">0.0452</td>
+<td align="right">100.015</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/2dpaYNEQHiRxtZbfNsse99</td>
+<td>audio_features</td>
+<td>spotify:track:2dpaYNEQHiRxtZbfNsse99</td>
+<td align="right">0.671</td>
+<td align="right">486</td>
+<td align="right">133</td>
+<td align="right">97</td>
+<td>8/17/2018</td>
+<td align="right">2018</td>
+<td>2dpaYNEQHiRxtZbfNsse99</td>
+<td>Happier</td>
+<td>Happier</td>
+<td align="right">0.69</td>
+</tr>
+<tr>
+<td>Lil Wayne</td>
+<td align="right">6890951</td>
+<td align="right">93</td>
+<td align="right">324189</td>
+<td align="right">0.371</td>
+<td>https://api.spotify.com/v1/audio-analysis/0dbTQYW3Ad1FTzIA9t90E8</td>
+<td align="right">0.855</td>
+<td align="right">324189</td>
+<td align="right">0.694</td>
+<td>0dbTQYW3Ad1FTzIA9t90E8</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0.109</td>
+<td align="right">-4.393</td>
+<td>1</td>
+<td align="right">0.169</td>
+<td align="right">122.078</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/0dbTQYW3Ad1FTzIA9t90E8</td>
+<td>audio_features</td>
+<td>spotify:track:0dbTQYW3Ad1FTzIA9t90E8</td>
+<td align="right">0.49</td>
+<td align="right">570</td>
+<td align="right">377</td>
+<td align="right">86</td>
+<td>9/28/2018</td>
+<td align="right">2018</td>
+<td>0dbTQYW3Ad1FTzIA9t90E8</td>
+<td>Mona Lisa</td>
+<td>Mona Lisa (feat. Kendrick Lamar)</td>
+<td align="right">0.745</td>
+</tr>
+<tr>
+<td>Lil Wayne</td>
+<td align="right">6890952</td>
+<td align="right">93</td>
+<td align="right">249450</td>
+<td align="right">0.409</td>
+<td>https://api.spotify.com/v1/audio-analysis/5BQrp63SHCVf4bzCzJePne</td>
+<td align="right">0.585</td>
+<td align="right">249450</td>
+<td align="right">0.709</td>
+<td>5BQrp63SHCVf4bzCzJePne</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.183</td>
+<td align="right">-6.072</td>
+<td>1</td>
+<td align="right">0.319</td>
+<td align="right">111.913</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/5BQrp63SHCVf4bzCzJePne</td>
+<td>audio_features</td>
+<td>spotify:track:5BQrp63SHCVf4bzCzJePne</td>
+<td align="right">0.21</td>
+<td align="right">570</td>
+<td align="right">377</td>
+<td align="right">82</td>
+<td>9/28/2018</td>
+<td align="right">2018</td>
+<td>5BQrp63SHCVf4bzCzJePne</td>
+<td>Don&#39;t Cry</td>
+<td>Don&#39;t Cry (feat. XXXTENTACION)</td>
+<td align="right">0.64</td>
+</tr>
+<tr>
+<td>Lil Wayne</td>
+<td align="right">6890952</td>
+<td align="right">93</td>
+<td align="right">194184</td>
+<td align="right">0.0595</td>
+<td>https://api.spotify.com/v1/audio-analysis/3wScL5W8H40zzCKN0atfBk</td>
+<td align="right">0.743</td>
+<td align="right">194184</td>
+<td align="right">0.87</td>
+<td>3wScL5W8H40zzCKN0atfBk</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.299</td>
+<td align="right">-2.188</td>
+<td>1</td>
+<td align="right">0.212</td>
+<td align="right">99.075</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/3wScL5W8H40zzCKN0atfBk</td>
+<td>audio_features</td>
+<td>spotify:track:3wScL5W8H40zzCKN0atfBk</td>
+<td align="right">0.884</td>
+<td align="right">737</td>
+<td align="right">249</td>
+<td align="right">84</td>
+<td>9/28/2018</td>
+<td align="right">2018</td>
+<td>3wScL5W8H40zzCKN0atfBk</td>
+<td>Uproar</td>
+<td>Uproar</td>
+<td align="right">0.65</td>
+</tr>
+<tr>
+<td>Lil Wayne</td>
+<td align="right">6890952</td>
+<td align="right">93</td>
+<td align="right">186872</td>
+<td align="right">0.0414</td>
+<td>https://api.spotify.com/v1/audio-analysis/0CBQ0m3mufWH75LTYB3s6h</td>
+<td align="right">0.902</td>
+<td align="right">186872</td>
+<td align="right">0.819</td>
+<td>0CBQ0m3mufWH75LTYB3s6h</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.106</td>
+<td align="right">-3.321</td>
+<td>1</td>
+<td align="right">0.317</td>
+<td align="right">89</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/0CBQ0m3mufWH75LTYB3s6h</td>
+<td>audio_features</td>
+<td>spotify:track:0CBQ0m3mufWH75LTYB3s6h</td>
+<td align="right">0.746</td>
+<td align="right">732</td>
+<td align="right">311</td>
+<td align="right">80</td>
+<td>9/28/2018</td>
+<td align="right">2018</td>
+<td>0CBQ0m3mufWH75LTYB3s6h</td>
+<td>Let It Fly</td>
+<td>Let It Fly (feat. Travis Scott)</td>
+<td align="right">0.585</td>
+</tr>
+<tr>
+<td>Eminem</td>
+<td align="right">22112124</td>
+<td align="right">95</td>
+<td align="right">253579</td>
+<td align="right">0.0989</td>
+<td>https://api.spotify.com/v1/audio-analysis/1jo3TwNGCXfNdB5uba3ZVv</td>
+<td align="right">0.892</td>
+<td align="right">253580</td>
+<td align="right">0.651</td>
+<td>1jo3TwNGCXfNdB5uba3ZVv</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0.371</td>
+<td align="right">-8.645</td>
+<td>0</td>
+<td align="right">0.378</td>
+<td align="right">105.814</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/1jo3TwNGCXfNdB5uba3ZVv</td>
+<td>audio_features</td>
+<td>spotify:track:1jo3TwNGCXfNdB5uba3ZVv</td>
+<td align="right">0.599</td>
+<td align="right">1191</td>
+<td align="right">520</td>
+<td align="right">86</td>
+<td>9/19/2018</td>
+<td align="right">2018</td>
+<td>1jo3TwNGCXfNdB5uba3ZVv</td>
+<td>Killshot</td>
+<td>Killshot</td>
+<td align="right">0.735</td>
+</tr>
+<tr>
+<td>5 Seconds of Summer</td>
+<td align="right">3788683</td>
+<td align="right">85</td>
+<td align="right">203417</td>
+<td align="right">0.0169</td>
+<td>https://api.spotify.com/v1/audio-analysis/55S2PQgSMYAhgoTCcGCDfw</td>
+<td align="right">0.596</td>
+<td align="right">203418</td>
+<td align="right">0.854</td>
+<td>55S2PQgSMYAhgoTCcGCDfw</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.124</td>
+<td align="right">-5.114</td>
+<td>0</td>
+<td align="right">0.463</td>
+<td align="right">120.274</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/55S2PQgSMYAhgoTCcGCDfw</td>
+<td>audio_features</td>
+<td>spotify:track:55S2PQgSMYAhgoTCcGCDfw</td>
+<td align="right">0.152</td>
+<td align="right">528</td>
+<td align="right">121</td>
+<td align="right">86</td>
+<td>4/12/2018</td>
+<td align="right">2018</td>
+<td>55S2PQgSMYAhgoTCcGCDfw</td>
+<td>Youngblood</td>
+<td>Youngblood</td>
+<td align="right">0.675</td>
+</tr>
+<tr>
+<td>Kanye West</td>
+<td align="right">8783339</td>
+<td align="right">92</td>
+<td align="right">127946</td>
+<td align="right">0.0114</td>
+<td>https://api.spotify.com/v1/audio-analysis/4S8d14HvHb70ImctNgVzQQ</td>
+<td align="right">0.901</td>
+<td align="right">127947</td>
+<td align="right">0.522</td>
+<td>4S8d14HvHb70ImctNgVzQQ</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0.259</td>
+<td align="right">-8.304</td>
+<td>1</td>
+<td align="right">0.33</td>
+<td align="right">104.053</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/4S8d14HvHb70ImctNgVzQQ</td>
+<td>audio_features</td>
+<td>spotify:track:4S8d14HvHb70ImctNgVzQQ</td>
+<td align="right">0.329</td>
+<td align="right">533</td>
+<td align="right">180</td>
+<td align="right">93</td>
+<td>9/7/2018</td>
+<td align="right">2018</td>
+<td>4S8d14HvHb70ImctNgVzQQ</td>
+<td>I Love It</td>
+<td>I Love It (&amp; Lil Pump)</td>
+<td align="right">0.725</td>
+</tr>
+<tr>
+<td>Eminem</td>
+<td align="right">22112125</td>
+<td align="right">95</td>
+<td align="right">244679</td>
+<td align="right">0.0627</td>
+<td>https://api.spotify.com/v1/audio-analysis/60SdxE8apGAxMiRrpbmLY0</td>
+<td align="right">0.876</td>
+<td align="right">244679</td>
+<td align="right">0.786</td>
+<td>60SdxE8apGAxMiRrpbmLY0</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">0.127</td>
+<td align="right">-4.884</td>
+<td>0</td>
+<td align="right">0.306</td>
+<td align="right">153.068</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/60SdxE8apGAxMiRrpbmLY0</td>
+<td>audio_features</td>
+<td>spotify:track:60SdxE8apGAxMiRrpbmLY0</td>
+<td align="right">0.575</td>
+<td align="right">1869</td>
+<td align="right">985</td>
+<td align="right">89</td>
+<td>8/31/2018</td>
+<td align="right">2018</td>
+<td>60SdxE8apGAxMiRrpbmLY0</td>
+<td>Lucky You</td>
+<td>Lucky You (feat. Joyner Lucas)</td>
+<td align="right">0.71</td>
+</tr>
+<tr>
+<td>Eminem</td>
+<td align="right">22112128</td>
+<td align="right">95</td>
+<td align="right">337941</td>
+<td align="right">0.0311</td>
+<td>https://api.spotify.com/v1/audio-analysis/2jt2WxXMCD4zjACthkJQVE</td>
+<td align="right">0.939</td>
+<td align="right">337941</td>
+<td align="right">0.551</td>
+<td>2jt2WxXMCD4zjACthkJQVE</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.192</td>
+<td align="right">-9.126</td>
+<td>1</td>
+<td align="right">0.291</td>
+<td align="right">118.552</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/2jt2WxXMCD4zjACthkJQVE</td>
+<td>audio_features</td>
+<td>spotify:track:2jt2WxXMCD4zjACthkJQVE</td>
+<td align="right">0.42</td>
+<td align="right">1663</td>
+<td align="right">651</td>
+<td align="right">84</td>
+<td>8/31/2018</td>
+<td align="right">2018</td>
+<td>2jt2WxXMCD4zjACthkJQVE</td>
+<td>The Ringer</td>
+<td>The Ringer</td>
+<td align="right">0.705</td>
+</tr>
+<tr>
+<td>Khalid</td>
+<td align="right">3957865</td>
+<td align="right">96</td>
+<td align="right">201707</td>
+<td align="right">0.0956</td>
+<td>https://api.spotify.com/v1/audio-analysis/45Egmo7icyopuzJN0oMEdk</td>
+<td align="right">0.708</td>
+<td align="right">201707</td>
+<td align="right">0.648</td>
+<td>45Egmo7icyopuzJN0oMEdk</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.134</td>
+<td align="right">-5.626</td>
+<td>1</td>
+<td align="right">0.0449</td>
+<td align="right">143.955</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/45Egmo7icyopuzJN0oMEdk</td>
+<td>audio_features</td>
+<td>spotify:track:45Egmo7icyopuzJN0oMEdk</td>
+<td align="right">0.338</td>
+<td align="right">494</td>
+<td align="right">143</td>
+<td align="right">86</td>
+<td>2/14/2018</td>
+<td align="right">2018</td>
+<td>45Egmo7icyopuzJN0oMEdk</td>
+<td>Love Lies</td>
+<td>Love Lies (with Normani)</td>
+<td align="right">0.725</td>
+</tr>
+<tr>
+<td>Ariana Grande</td>
+<td align="right">20732469</td>
+<td align="right">96</td>
+<td align="right">197546</td>
+<td align="right">0.0233</td>
+<td>https://api.spotify.com/v1/audio-analysis/5OCJzvD7sykQEKHH7qAC3C</td>
+<td align="right">0.602</td>
+<td align="right">197547</td>
+<td align="right">0.658</td>
+<td>5OCJzvD7sykQEKHH7qAC3C</td>
+<td align="right">6.00E-05</td>
+<td align="right">1</td>
+<td align="right">0.237</td>
+<td align="right">-5.934</td>
+<td>1</td>
+<td align="right">0.0558</td>
+<td align="right">145.031</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/5OCJzvD7sykQEKHH7qAC3C</td>
+<td>audio_features</td>
+<td>spotify:track:5OCJzvD7sykQEKHH7qAC3C</td>
+<td align="right">0.268</td>
+<td align="right">526</td>
+<td align="right">127</td>
+<td align="right">89</td>
+<td>8/17/2018</td>
+<td align="right">2018</td>
+<td>5OCJzvD7sykQEKHH7qAC3C</td>
+<td>God Is a Woman</td>
+<td>God is a woman</td>
+<td align="right">0.715</td>
+</tr>
+<tr>
+<td>Travis Scott</td>
+<td align="right">3770224</td>
+<td align="right">96</td>
+<td align="right">312820</td>
+<td align="right">0.00513</td>
+<td>https://api.spotify.com/v1/audio-analysis/2xLMifQCjDGFmkHkpNLD9h</td>
+<td align="right">0.834</td>
+<td align="right">312820</td>
+<td align="right">0.73</td>
+<td>2xLMifQCjDGFmkHkpNLD9h</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.124</td>
+<td align="right">-3.714</td>
+<td>1</td>
+<td align="right">0.222</td>
+<td align="right">155.008</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/2xLMifQCjDGFmkHkpNLD9h</td>
+<td>audio_features</td>
+<td>spotify:track:2xLMifQCjDGFmkHkpNLD9h</td>
+<td align="right">0.446</td>
+<td align="right">1020</td>
+<td align="right">400</td>
+<td align="right">96</td>
+<td>8/3/2018</td>
+<td align="right">2018</td>
+<td>2xLMifQCjDGFmkHkpNLD9h</td>
+<td>Sicko Mode</td>
+<td>SICKO MODE</td>
+<td align="right">0.695</td>
+</tr>
+<tr>
+<td>Travis Scott</td>
+<td align="right">3770224</td>
+<td align="right">96</td>
+<td align="right">270714</td>
+<td align="right">0.00947</td>
+<td>https://api.spotify.com/v1/audio-analysis/7wBJfHzpfI3032CSD7CE2m</td>
+<td align="right">0.487</td>
+<td align="right">270715</td>
+<td align="right">0.789</td>
+<td>7wBJfHzpfI3032CSD7CE2m</td>
+<td align="right">4.05E-06</td>
+<td align="right">8</td>
+<td align="right">0.189</td>
+<td align="right">-3.69</td>
+<td>1</td>
+<td align="right">0.044</td>
+<td align="right">150.007</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/7wBJfHzpfI3032CSD7CE2m</td>
+<td>audio_features</td>
+<td>spotify:track:7wBJfHzpfI3032CSD7CE2m</td>
+<td align="right">0.0564</td>
+<td align="right">623</td>
+<td align="right">249</td>
+<td align="right">86</td>
+<td>8/3/2018</td>
+<td align="right">2018</td>
+<td>7wBJfHzpfI3032CSD7CE2m</td>
+<td>Stargazing</td>
+<td>STARGAZING</td>
+<td align="right">0.72</td>
+</tr>
+<tr>
+<td>DJ Khaled</td>
+<td align="right">3272954</td>
+<td align="right">82</td>
+<td align="right">260000</td>
+<td align="right">0.0733</td>
+<td>https://api.spotify.com/v1/audio-analysis/5WvAo7DNuPRmk4APhdPzi8</td>
+<td align="right">0.552</td>
+<td align="right">260000</td>
+<td align="right">0.76</td>
+<td>5WvAo7DNuPRmk4APhdPzi8</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0.0865</td>
+<td align="right">-4.706</td>
+<td>1</td>
+<td align="right">0.342</td>
+<td align="right">135.702</td>
+<td align="right">5</td>
+<td>https://api.spotify.com/v1/tracks/5WvAo7DNuPRmk4APhdPzi8</td>
+<td>audio_features</td>
+<td>spotify:track:5WvAo7DNuPRmk4APhdPzi8</td>
+<td align="right">0.639</td>
+<td align="right">910</td>
+<td align="right">252</td>
+<td align="right">87</td>
+<td>7/27/2018</td>
+<td align="right">2018</td>
+<td>5WvAo7DNuPRmk4APhdPzi8</td>
+<td>No Brainer</td>
+<td>No Brainer</td>
+<td align="right">0.67</td>
+</tr>
+<tr>
+<td>6ix9ine</td>
+<td align="right">2852055</td>
+<td align="right">89</td>
+<td align="right">179404</td>
+<td align="right">0.088</td>
+<td>https://api.spotify.com/v1/audio-analysis/2E124GmJRnBJuXbTb4cPUB</td>
+<td align="right">0.931</td>
+<td align="right">179405</td>
+<td align="right">0.387</td>
+<td>2E124GmJRnBJuXbTb4cPUB</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.136</td>
+<td align="right">-9.127</td>
+<td>1</td>
+<td align="right">0.412</td>
+<td align="right">125.978</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/2E124GmJRnBJuXbTb4cPUB</td>
+<td>audio_features</td>
+<td>spotify:track:2E124GmJRnBJuXbTb4cPUB</td>
+<td align="right">0.376</td>
+<td align="right">664</td>
+<td align="right">288</td>
+<td align="right">90</td>
+<td>7/22/2018</td>
+<td align="right">2018</td>
+<td>2E124GmJRnBJuXbTb4cPUB</td>
+<td>Fefe</td>
+<td>FEFE (feat. Nicki Minaj &amp; Murda Beatz)</td>
+<td align="right">0.695</td>
+</tr>
+<tr>
+<td>Tyga</td>
+<td align="right">4133182</td>
+<td align="right">87</td>
+<td align="right">232959</td>
+<td align="right">0.0236</td>
+<td>https://api.spotify.com/v1/audio-analysis/5IaHrVsrferBYDm0bDyABy</td>
+<td align="right">0.884</td>
+<td align="right">232959</td>
+<td align="right">0.559</td>
+<td>5IaHrVsrferBYDm0bDyABy</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0.101</td>
+<td align="right">-7.442</td>
+<td>1</td>
+<td align="right">0.12</td>
+<td align="right">97.994</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/5IaHrVsrferBYDm0bDyABy</td>
+<td>audio_features</td>
+<td>spotify:track:5IaHrVsrferBYDm0bDyABy</td>
+<td align="right">0.342</td>
+<td align="right">618</td>
+<td align="right">400</td>
+<td align="right">91</td>
+<td>5/16/2018</td>
+<td align="right">2018</td>
+<td>5IaHrVsrferBYDm0bDyABy</td>
+<td>Taste</td>
+<td>Taste (feat. Offset)</td>
+<td align="right">0.795</td>
+</tr>
+<tr>
+<td>Drake</td>
+<td align="right">29562408</td>
+<td align="right">100</td>
+<td align="right">238614</td>
+<td align="right">0.0164</td>
+<td>https://api.spotify.com/v1/audio-analysis/0TlLq3lA83rQOYtrqBqSct</td>
+<td align="right">0.912</td>
+<td align="right">238614</td>
+<td align="right">0.412</td>
+<td>0TlLq3lA83rQOYtrqBqSct</td>
+<td align="right">0.013</td>
+<td align="right">7</td>
+<td align="right">0.104</td>
+<td align="right">-8.074</td>
+<td>1</td>
+<td align="right">0.124</td>
+<td align="right">154.983</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/0TlLq3lA83rQOYtrqBqSct</td>
+<td>audio_features</td>
+<td>spotify:track:0TlLq3lA83rQOYtrqBqSct</td>
+<td align="right">0.422</td>
+<td align="right">880</td>
+<td align="right">291</td>
+<td align="right">90</td>
+<td>6/29/2018</td>
+<td align="right">2018</td>
+<td>0TlLq3lA83rQOYtrqBqSct</td>
+<td>Nonstop</td>
+<td>Nonstop</td>
+<td align="right">0.64</td>
+</tr>
+<tr>
+<td>Drake</td>
+<td align="right">29562411</td>
+<td align="right">100</td>
+<td align="right">217925</td>
+<td align="right">0.0589</td>
+<td>https://api.spotify.com/v1/audio-analysis/2G7V7zsVDxg1yRsu7Ew9RJ</td>
+<td align="right">0.835</td>
+<td align="right">217925</td>
+<td align="right">0.626</td>
+<td>2G7V7zsVDxg1yRsu7Ew9RJ</td>
+<td align="right">6.00E-05</td>
+<td align="right">1</td>
+<td align="right">0.396</td>
+<td align="right">-5.833</td>
+<td>1</td>
+<td align="right">0.125</td>
+<td align="right">91.03</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/2G7V7zsVDxg1yRsu7Ew9RJ</td>
+<td>audio_features</td>
+<td>spotify:track:2G7V7zsVDxg1yRsu7Ew9RJ</td>
+<td align="right">0.35</td>
+<td align="right">701</td>
+<td align="right">213</td>
+<td align="right">92</td>
+<td>6/29/2018</td>
+<td align="right">2018</td>
+<td>2G7V7zsVDxg1yRsu7Ew9RJ</td>
+<td>In My Feelings</td>
+<td>In My Feelings</td>
+<td align="right">0.685</td>
+</tr>
+<tr>
+<td>Drake</td>
+<td align="right">29562411</td>
+<td align="right">100</td>
+<td align="right">214466</td>
+<td align="right">0.279</td>
+<td>https://api.spotify.com/v1/audio-analysis/3qN5qMTKyEEmiTZD38BNTT</td>
+<td align="right">0.899</td>
+<td align="right">214467</td>
+<td align="right">0.586</td>
+<td>3qN5qMTKyEEmiTZD38BNTT</td>
+<td align="right">0</td>
+<td align="right">11</td>
+<td align="right">0.0836</td>
+<td align="right">-7.866</td>
+<td>0</td>
+<td align="right">0.344</td>
+<td align="right">150.001</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/3qN5qMTKyEEmiTZD38BNTT</td>
+<td>audio_features</td>
+<td>spotify:track:3qN5qMTKyEEmiTZD38BNTT</td>
+<td align="right">0.492</td>
+<td align="right">512</td>
+<td align="right">229</td>
+<td align="right">81</td>
+<td>6/29/2018</td>
+<td align="right">2018</td>
+<td>3qN5qMTKyEEmiTZD38BNTT</td>
+<td>I&#39;m Upset</td>
+<td>I&#39;m Upset</td>
+<td align="right">0.635</td>
+</tr>
+<tr>
+<td>Drake</td>
+<td align="right">29562413</td>
+<td align="right">100</td>
+<td align="right">302173</td>
+<td align="right">0.0249</td>
+<td>https://api.spotify.com/v1/audio-analysis/5Psnhdkyanjpgc2P8A5TSM</td>
+<td align="right">0.413</td>
+<td align="right">302173</td>
+<td align="right">0.677</td>
+<td>5Psnhdkyanjpgc2P8A5TSM</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.0793</td>
+<td align="right">-5.12</td>
+<td>1</td>
+<td align="right">0.255</td>
+<td align="right">172.501</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/5Psnhdkyanjpgc2P8A5TSM</td>
+<td>audio_features</td>
+<td>spotify:track:5Psnhdkyanjpgc2P8A5TSM</td>
+<td align="right">0.0845</td>
+<td align="right">709</td>
+<td align="right">291</td>
+<td align="right">75</td>
+<td>6/29/2018</td>
+<td align="right">2018</td>
+<td>5Psnhdkyanjpgc2P8A5TSM</td>
+<td>Emotionless</td>
+<td>Emotionless</td>
+<td align="right">0.605</td>
+</tr>
+<tr>
+<td>Drake</td>
+<td align="right">29562413</td>
+<td align="right">100</td>
+<td align="right">245786</td>
+<td align="right">0.493</td>
+<td>https://api.spotify.com/v1/audio-analysis/6G8kHiVZ1jW7vHMPVRNZU0</td>
+<td align="right">0.826</td>
+<td align="right">245787</td>
+<td align="right">0.318</td>
+<td>6G8kHiVZ1jW7vHMPVRNZU0</td>
+<td align="right">0.0131</td>
+<td align="right">10</td>
+<td align="right">0.11</td>
+<td align="right">-12.391</td>
+<td>1</td>
+<td align="right">0.0574</td>
+<td align="right">103.002</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/6G8kHiVZ1jW7vHMPVRNZU0</td>
+<td>audio_features</td>
+<td>spotify:track:6G8kHiVZ1jW7vHMPVRNZU0</td>
+<td align="right">0.138</td>
+<td align="right">403</td>
+<td align="right">117</td>
+<td align="right">84</td>
+<td>6/29/2018</td>
+<td align="right">2018</td>
+<td>6G8kHiVZ1jW7vHMPVRNZU0</td>
+<td>Don&#39;t Matter to Me</td>
+<td>Don’t Matter To Me (with Michael Jackson)</td>
+<td align="right">0.61</td>
+</tr>
+<tr>
+<td>Maroon 5</td>
+<td align="right">14375227</td>
+<td align="right">90</td>
+<td align="right">235545</td>
+<td align="right">0.568</td>
+<td>https://api.spotify.com/v1/audio-analysis/6FRLCMO5TUHTexlWo8ym1W</td>
+<td align="right">0.851</td>
+<td align="right">235545</td>
+<td align="right">0.541</td>
+<td>6FRLCMO5TUHTexlWo8ym1W</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0.13</td>
+<td align="right">-6.825</td>
+<td>1</td>
+<td align="right">0.0505</td>
+<td align="right">124.959</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/6FRLCMO5TUHTexlWo8ym1W</td>
+<td>audio_features</td>
+<td>spotify:track:6FRLCMO5TUHTexlWo8ym1W</td>
+<td align="right">0.448</td>
+<td align="right">595</td>
+<td align="right">388</td>
+<td align="right">90</td>
+<td>5/30/2018</td>
+<td align="right">2018</td>
+<td>6FRLCMO5TUHTexlWo8ym1W</td>
+<td>Girls Like You</td>
+<td>Girls Like You (feat. Cardi B)</td>
+<td align="right">0.825</td>
+</tr>
+<tr>
+<td>Kanye West</td>
+<td align="right">8783341</td>
+<td align="right">92</td>
+<td align="right">188773</td>
+<td align="right">0.15</td>
+<td>https://api.spotify.com/v1/audio-analysis/1qsHYUd2c1wFGcn7e63QmG</td>
+<td align="right">0.683</td>
+<td align="right">188773</td>
+<td align="right">0.776</td>
+<td>1qsHYUd2c1wFGcn7e63QmG</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.227</td>
+<td align="right">-3.251</td>
+<td>0</td>
+<td align="right">0.341</td>
+<td align="right">173.996</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/1qsHYUd2c1wFGcn7e63QmG</td>
+<td>audio_features</td>
+<td>spotify:track:1qsHYUd2c1wFGcn7e63QmG</td>
+<td align="right">0.223</td>
+<td align="right">570</td>
+<td align="right">235</td>
+<td align="right">69</td>
+<td>6/1/2018</td>
+<td align="right">2018</td>
+<td>1qsHYUd2c1wFGcn7e63QmG</td>
+<td>Yikes</td>
+<td>Yikes</td>
+<td align="right">0.585</td>
+</tr>
+<tr>
+<td>Juice WRLD</td>
+<td align="right">2047149</td>
+<td align="right">93</td>
+<td align="right">239835</td>
+<td align="right">0.349</td>
+<td>https://api.spotify.com/v1/audio-analysis/0s3nnoMeVWz3989MkNQiRf</td>
+<td align="right">0.511</td>
+<td align="right">239836</td>
+<td align="right">0.566</td>
+<td>0s3nnoMeVWz3989MkNQiRf</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.34</td>
+<td align="right">-7.23</td>
+<td>0</td>
+<td align="right">0.2</td>
+<td align="right">83.903</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/0s3nnoMeVWz3989MkNQiRf</td>
+<td>audio_features</td>
+<td>spotify:track:0s3nnoMeVWz3989MkNQiRf</td>
+<td align="right">0.218</td>
+<td align="right">666</td>
+<td align="right">148</td>
+<td align="right">94</td>
+<td>5/23/2018</td>
+<td align="right">2018</td>
+<td>0s3nnoMeVWz3989MkNQiRf</td>
+<td>Lucid Dreams</td>
+<td>Lucid Dreams</td>
+<td align="right">0.77</td>
+</tr>
+<tr>
+<td>Lil Baby</td>
+<td align="right">1000909</td>
+<td align="right">91</td>
+<td align="right">142273</td>
+<td align="right">0.035</td>
+<td>https://api.spotify.com/v1/audio-analysis/6vN77lE9LK6HP2DewaN6HZ</td>
+<td align="right">0.964</td>
+<td align="right">142273</td>
+<td align="right">0.346</td>
+<td>6vN77lE9LK6HP2DewaN6HZ</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.108</td>
+<td align="right">-9.309</td>
+<td>0</td>
+<td align="right">0.53</td>
+<td align="right">119.958</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/6vN77lE9LK6HP2DewaN6HZ</td>
+<td>audio_features</td>
+<td>spotify:track:6vN77lE9LK6HP2DewaN6HZ</td>
+<td align="right">0.562</td>
+<td align="right">542</td>
+<td align="right">219</td>
+<td align="right">87</td>
+<td>5/18/2018</td>
+<td align="right">2018</td>
+<td>6vN77lE9LK6HP2DewaN6HZ</td>
+<td>Yes Indeed</td>
+<td>Yes Indeed</td>
+<td align="right">0.68</td>
+</tr>
+<tr>
+<td>Ella Mai</td>
+<td align="right">778777</td>
+<td align="right">82</td>
+<td align="right">256063</td>
+<td align="right">0.0862</td>
+<td>https://api.spotify.com/v1/audio-analysis/0At2qAoaVjIwWNAqrscXli</td>
+<td align="right">0.561</td>
+<td align="right">256064</td>
+<td align="right">0.779</td>
+<td>0At2qAoaVjIwWNAqrscXli</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">0.078</td>
+<td align="right">-5.107</td>
+<td>0</td>
+<td align="right">0.0531</td>
+<td align="right">81.965</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/0At2qAoaVjIwWNAqrscXli</td>
+<td>audio_features</td>
+<td>spotify:track:0At2qAoaVjIwWNAqrscXli</td>
+<td align="right">0.235</td>
+<td align="right">560</td>
+<td align="right">125</td>
+<td align="right">81</td>
+<td>2/22/2017</td>
+<td align="right">2017</td>
+<td>0At2qAoaVjIwWNAqrscXli</td>
+<td>Boo&#39;d Up</td>
+<td>Boo&#39;d Up</td>
+<td align="right">0.235</td>
+</tr>
+<tr>
+<td>Drake</td>
+<td align="right">29562420</td>
+<td align="right">100</td>
+<td align="right">210937</td>
+<td align="right">0.108</td>
+<td>https://api.spotify.com/v1/audio-analysis/343YBumqHu19cGoGARUTsd</td>
+<td align="right">0.927</td>
+<td align="right">210937</td>
+<td align="right">0.488</td>
+<td>343YBumqHu19cGoGARUTsd</td>
+<td align="right">0</td>
+<td align="right">9</td>
+<td align="right">0.196</td>
+<td align="right">-9.433</td>
+<td>0</td>
+<td align="right">0.42</td>
+<td align="right">133.987</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/343YBumqHu19cGoGARUTsd</td>
+<td>audio_features</td>
+<td>spotify:track:343YBumqHu19cGoGARUTsd</td>
+<td align="right">0.605</td>
+<td align="right">551</td>
+<td align="right">124</td>
+<td align="right">76</td>
+<td>3/18/2017</td>
+<td align="right">2017</td>
+<td>343YBumqHu19cGoGARUTsd</td>
+<td>Fake Love</td>
+<td>Fake Love</td>
+<td align="right">0.08</td>
+</tr>
+<tr>
+<td>Childish Gambino</td>
+<td align="right">4086328</td>
+<td align="right">82</td>
+<td align="right">225773</td>
+<td align="right">0.117</td>
+<td>https://api.spotify.com/v1/audio-analysis/0b9oOr2ZgvyQu88wzixux9</td>
+<td align="right">0.854</td>
+<td align="right">225773</td>
+<td align="right">0.463</td>
+<td>0b9oOr2ZgvyQu88wzixux9</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.354</td>
+<td align="right">-6.159</td>
+<td>1</td>
+<td align="right">0.137</td>
+<td align="right">120.024</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/0b9oOr2ZgvyQu88wzixux9</td>
+<td>audio_features</td>
+<td>spotify:track:0b9oOr2ZgvyQu88wzixux9</td>
+<td align="right">0.549</td>
+<td align="right">840</td>
+<td align="right">207</td>
+<td align="right">80</td>
+<td>5/6/2018</td>
+<td align="right">2018</td>
+<td>0b9oOr2ZgvyQu88wzixux9</td>
+<td>This Is America</td>
+<td>This Is America</td>
+<td align="right">0.66</td>
+</tr>
+<tr>
+<td>Camila Cabello</td>
+<td align="right">7359807</td>
+<td align="right">88</td>
+<td align="right">226973</td>
+<td align="right">0.181</td>
+<td>https://api.spotify.com/v1/audio-analysis/4eWQlBRaTjPPUlzacqEeoQ</td>
+<td align="right">0.637</td>
+<td align="right">226973</td>
+<td align="right">0.713</td>
+<td>4eWQlBRaTjPPUlzacqEeoQ</td>
+<td align="right">0.000637</td>
+<td align="right">0</td>
+<td align="right">0.137</td>
+<td align="right">-4.333</td>
+<td>1</td>
+<td align="right">0.0747</td>
+<td align="right">129.923</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/4eWQlBRaTjPPUlzacqEeoQ</td>
+<td>audio_features</td>
+<td>spotify:track:4eWQlBRaTjPPUlzacqEeoQ</td>
+<td align="right">0.243</td>
+<td align="right">558</td>
+<td align="right">110</td>
+<td align="right">80</td>
+<td>1/12/2018</td>
+<td align="right">2018</td>
+<td>4eWQlBRaTjPPUlzacqEeoQ</td>
+<td>Never Be the Same</td>
+<td>Never Be the Same</td>
+<td align="right">0.565</td>
+</tr>
+<tr>
+<td>Post Malone</td>
+<td align="right">8814524</td>
+<td align="right">96</td>
+<td align="right">231266</td>
+<td align="right">0.354</td>
+<td>https://api.spotify.com/v1/audio-analysis/7dt6x5M1jzdTEt8oCbisTK</td>
+<td align="right">0.68</td>
+<td align="right">231267</td>
+<td align="right">0.563</td>
+<td>7dt6x5M1jzdTEt8oCbisTK</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">0.136</td>
+<td align="right">-5.843</td>
+<td>1</td>
+<td align="right">0.0454</td>
+<td align="right">145.028</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/7dt6x5M1jzdTEt8oCbisTK</td>
+<td>audio_features</td>
+<td>spotify:track:7dt6x5M1jzdTEt8oCbisTK</td>
+<td align="right">0.374</td>
+<td align="right">599</td>
+<td align="right">149</td>
+<td align="right">92</td>
+<td>4/27/2018</td>
+<td align="right">2018</td>
+<td>7dt6x5M1jzdTEt8oCbisTK</td>
+<td>Better Now</td>
+<td>Better Now</td>
+<td align="right">0.74</td>
+</tr>
+<tr>
+<td>Ariana Grande</td>
+<td align="right">20732485</td>
+<td align="right">96</td>
+<td align="right">205920</td>
+<td align="right">0.04</td>
+<td>https://api.spotify.com/v1/audio-analysis/2qT1uLXPVPzGgFOx4jtEuo</td>
+<td align="right">0.699</td>
+<td align="right">205920</td>
+<td align="right">0.713</td>
+<td>2qT1uLXPVPzGgFOx4jtEuo</td>
+<td align="right">3.11E-06</td>
+<td align="right">9</td>
+<td align="right">0.294</td>
+<td align="right">-5.507</td>
+<td>0</td>
+<td align="right">0.0594</td>
+<td align="right">121.993</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/2qT1uLXPVPzGgFOx4jtEuo</td>
+<td>audio_features</td>
+<td>spotify:track:2qT1uLXPVPzGgFOx4jtEuo</td>
+<td align="right">0.354</td>
+<td align="right">720</td>
+<td align="right">113</td>
+<td align="right">89</td>
+<td>8/17/2018</td>
+<td align="right">2018</td>
+<td>2qT1uLXPVPzGgFOx4jtEuo</td>
+<td>No Tears Left to Cry</td>
+<td>no tears left to cry</td>
+<td align="right">0.685</td>
+</tr>
+<tr>
+<td>J. Cole</td>
+<td align="right">6778692</td>
+<td align="right">88</td>
+<td align="right">216726</td>
+<td align="right">0.115</td>
+<td>https://api.spotify.com/v1/audio-analysis/2UciqgwVDwro0fev3MFbxJ</td>
+<td align="right">0.719</td>
+<td align="right">216727</td>
+<td align="right">0.497</td>
+<td>2UciqgwVDwro0fev3MFbxJ</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.0898</td>
+<td align="right">-7.661</td>
+<td>1</td>
+<td align="right">0.681</td>
+<td align="right">81.651</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/2UciqgwVDwro0fev3MFbxJ</td>
+<td>audio_features</td>
+<td>spotify:track:2UciqgwVDwro0fev3MFbxJ</td>
+<td align="right">0.345</td>
+<td align="right">754</td>
+<td align="right">208</td>
+<td align="right">74</td>
+<td>4/20/2018</td>
+<td align="right">2018</td>
+<td>2UciqgwVDwro0fev3MFbxJ</td>
+<td>ATM</td>
+<td>ATM</td>
+<td align="right">0.605</td>
+</tr>
+<tr>
+<td>J. Cole</td>
+<td align="right">6778692</td>
+<td align="right">88</td>
+<td align="right">200309</td>
+<td align="right">0.482</td>
+<td>https://api.spotify.com/v1/audio-analysis/6tZ3b7ik1QDXFAZlXib0YZ</td>
+<td align="right">0.829</td>
+<td align="right">200310</td>
+<td align="right">0.527</td>
+<td>6tZ3b7ik1QDXFAZlXib0YZ</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.631</td>
+<td align="right">-6.644</td>
+<td>0</td>
+<td align="right">0.367</td>
+<td align="right">116.078</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/6tZ3b7ik1QDXFAZlXib0YZ</td>
+<td>audio_features</td>
+<td>spotify:track:6tZ3b7ik1QDXFAZlXib0YZ</td>
+<td align="right">0.473</td>
+<td align="right">750</td>
+<td align="right">229</td>
+<td align="right">76</td>
+<td>4/20/2018</td>
+<td align="right">2018</td>
+<td>6tZ3b7ik1QDXFAZlXib0YZ</td>
+<td>Kevin&#39;s Heart</td>
+<td>Kevin’s Heart</td>
+<td align="right">0.625</td>
+</tr>
+<tr>
+<td>J. Cole</td>
+<td align="right">6778694</td>
+<td align="right">88</td>
+<td align="right">191436</td>
+<td align="right">0.21</td>
+<td>https://api.spotify.com/v1/audio-analysis/7yotKA30dwTKNEGomV9ZsI</td>
+<td align="right">0.831</td>
+<td align="right">191437</td>
+<td align="right">0.782</td>
+<td>7yotKA30dwTKNEGomV9ZsI</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0.113</td>
+<td align="right">-6.274</td>
+<td>1</td>
+<td align="right">0.15</td>
+<td align="right">141.869</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/7yotKA30dwTKNEGomV9ZsI</td>
+<td>audio_features</td>
+<td>spotify:track:7yotKA30dwTKNEGomV9ZsI</td>
+<td align="right">0.199</td>
+<td align="right">756</td>
+<td align="right">225</td>
+<td align="right">78</td>
+<td>4/20/2018</td>
+<td align="right">2018</td>
+<td>7yotKA30dwTKNEGomV9ZsI</td>
+<td>KOD</td>
+<td>KOD</td>
+<td align="right">0.66</td>
+</tr>
+<tr>
+<td>Nicki Minaj</td>
+<td align="right">13336051</td>
+<td align="right">95</td>
+<td align="right">191605</td>
+<td align="right">0.307</td>
+<td>https://api.spotify.com/v1/audio-analysis/2gTYVoQCUh0QNUaFix01ld</td>
+<td align="right">0.643</td>
+<td align="right">191606</td>
+<td align="right">0.766</td>
+<td>2gTYVoQCUh0QNUaFix01ld</td>
+<td align="right">1.38E-05</td>
+<td align="right">6</td>
+<td align="right">0.107</td>
+<td align="right">-4.788</td>
+<td>0</td>
+<td align="right">0.384</td>
+<td align="right">97.092</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/2gTYVoQCUh0QNUaFix01ld</td>
+<td>audio_features</td>
+<td>spotify:track:2gTYVoQCUh0QNUaFix01ld</td>
+<td align="right">0.463</td>
+<td align="right">553</td>
+<td align="right">222</td>
+<td align="right">75</td>
+<td>4/12/2018</td>
+<td align="right">2018</td>
+<td>2gTYVoQCUh0QNUaFix01ld</td>
+<td>Chun-Li</td>
+<td>Chun-Li</td>
+<td align="right">0.585</td>
+</tr>
+<tr>
+<td>Drake</td>
+<td align="right">29562427</td>
+<td align="right">100</td>
+<td align="right">210746</td>
+<td align="right">0.0891</td>
+<td>https://api.spotify.com/v1/audio-analysis/3CA9pLiwRIGtUBiMjbZmRw</td>
+<td align="right">0.586</td>
+<td align="right">210747</td>
+<td align="right">0.909</td>
+<td>3CA9pLiwRIGtUBiMjbZmRw</td>
+<td align="right">0.000109</td>
+<td align="right">8</td>
+<td align="right">0.119</td>
+<td align="right">-6.474</td>
+<td>1</td>
+<td align="right">0.0705</td>
+<td align="right">93.394</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/3CA9pLiwRIGtUBiMjbZmRw</td>
+<td>audio_features</td>
+<td>spotify:track:3CA9pLiwRIGtUBiMjbZmRw</td>
+<td align="right">0.757</td>
+<td align="right">1241</td>
+<td align="right">240</td>
+<td align="right">86</td>
+<td>6/29/2018</td>
+<td align="right">2018</td>
+<td>3CA9pLiwRIGtUBiMjbZmRw</td>
+<td>Nice for What</td>
+<td>Nice For What</td>
+<td align="right">0.715</td>
+</tr>
+<tr>
+<td>Cardi B</td>
+<td align="right">5190589</td>
+<td align="right">95</td>
+<td align="right">253390</td>
+<td align="right">0.099</td>
+<td>https://api.spotify.com/v1/audio-analysis/58q2HKrzhC3ozto2nDdN4z</td>
+<td align="right">0.816</td>
+<td align="right">253390</td>
+<td align="right">0.726</td>
+<td>58q2HKrzhC3ozto2nDdN4z</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.372</td>
+<td align="right">-3.998</td>
+<td>0</td>
+<td align="right">0.129</td>
+<td align="right">136.048</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/58q2HKrzhC3ozto2nDdN4z</td>
+<td>audio_features</td>
+<td>spotify:track:58q2HKrzhC3ozto2nDdN4z</td>
+<td align="right">0.65</td>
+<td align="right">957</td>
+<td align="right">358</td>
+<td align="right">91</td>
+<td>4/6/2018</td>
+<td align="right">2018</td>
+<td>58q2HKrzhC3ozto2nDdN4z</td>
+<td>I Like It</td>
+<td>I Like It</td>
+<td align="right">0.775</td>
+</tr>
+<tr>
+<td>The Weeknd</td>
+<td align="right">13439861</td>
+<td align="right">90</td>
+<td align="right">228373</td>
+<td align="right">0.211</td>
+<td>https://api.spotify.com/v1/audio-analysis/4MPTj8lMMvxLwT3EwuXFop</td>
+<td align="right">0.449</td>
+<td align="right">228373</td>
+<td align="right">0.599</td>
+<td>4MPTj8lMMvxLwT3EwuXFop</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.327</td>
+<td align="right">-4.892</td>
+<td>1</td>
+<td align="right">0.0369</td>
+<td align="right">134.144</td>
+<td align="right">3</td>
+<td>https://api.spotify.com/v1/tracks/4MPTj8lMMvxLwT3EwuXFop</td>
+<td>audio_features</td>
+<td>spotify:track:4MPTj8lMMvxLwT3EwuXFop</td>
+<td align="right">0.165</td>
+<td align="right">406</td>
+<td align="right">117</td>
+<td align="right">83</td>
+<td>3/30/2018</td>
+<td align="right">2018</td>
+<td>4MPTj8lMMvxLwT3EwuXFop</td>
+<td>Call Out My Name</td>
+<td>Call Out My Name</td>
+<td align="right">0.645</td>
+</tr>
+<tr>
+<td>Migos</td>
+<td align="right">7825280</td>
+<td align="right">87</td>
+<td align="right">276147</td>
+<td align="right">0.0739</td>
+<td>https://api.spotify.com/v1/audio-analysis/6n4U3TlzUGhdSFbUUhTvLP</td>
+<td align="right">0.909</td>
+<td align="right">276147</td>
+<td align="right">0.628</td>
+<td>6n4U3TlzUGhdSFbUUhTvLP</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0.108</td>
+<td align="right">-5.456</td>
+<td>1</td>
+<td align="right">0.201</td>
+<td align="right">145.905</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/6n4U3TlzUGhdSFbUUhTvLP</td>
+<td>audio_features</td>
+<td>spotify:track:6n4U3TlzUGhdSFbUUhTvLP</td>
+<td align="right">0.406</td>
+<td align="right">1328</td>
+<td align="right">334</td>
+<td align="right">83</td>
+<td>1/26/2018</td>
+<td align="right">2018</td>
+<td>6n4U3TlzUGhdSFbUUhTvLP</td>
+<td>Walk It Talk It</td>
+<td>Walk It Talk It</td>
+<td align="right">0.695</td>
+</tr>
+<tr>
+<td>XXXTENTACION</td>
+<td align="right">8289376</td>
+<td align="right">98</td>
+<td align="right">166605</td>
+<td align="right">0.258</td>
+<td>https://api.spotify.com/v1/audio-analysis/3ee8Jmje8o58CHK66QrVC2</td>
+<td align="right">0.74</td>
+<td align="right">166606</td>
+<td align="right">0.613</td>
+<td>3ee8Jmje8o58CHK66QrVC2</td>
+<td align="right">0.00372</td>
+<td align="right">8</td>
+<td align="right">0.123</td>
+<td align="right">-4.88</td>
+<td>1</td>
+<td align="right">0.145</td>
+<td align="right">75.023</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/3ee8Jmje8o58CHK66QrVC2</td>
+<td>audio_features</td>
+<td>spotify:track:3ee8Jmje8o58CHK66QrVC2</td>
+<td align="right">0.473</td>
+<td align="right">375</td>
+<td align="right">67</td>
+<td align="right">93</td>
+<td>3/16/2018</td>
+<td align="right">2018</td>
+<td>3ee8Jmje8o58CHK66QrVC2</td>
+<td>Sad!</td>
+<td>SAD!</td>
+<td align="right">0.655</td>
+</tr>
+<tr>
+<td>Lil Dicky</td>
+<td align="right">1015490</td>
+<td align="right">75</td>
+<td align="right">216631</td>
+<td align="right">0.147</td>
+<td>https://api.spotify.com/v1/audio-analysis/10Igtw8bSDyyFs7KIsKngZ</td>
+<td align="right">0.755</td>
+<td align="right">216632</td>
+<td align="right">0.599</td>
+<td>10Igtw8bSDyyFs7KIsKngZ</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.109</td>
+<td align="right">-5.042</td>
+<td>1</td>
+<td align="right">0.224</td>
+<td align="right">133.123</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/10Igtw8bSDyyFs7KIsKngZ</td>
+<td>audio_features</td>
+<td>spotify:track:10Igtw8bSDyyFs7KIsKngZ</td>
+<td align="right">0.755</td>
+<td align="right">561</td>
+<td align="right">314</td>
+<td align="right">82</td>
+<td>3/15/2018</td>
+<td align="right">2018</td>
+<td>10Igtw8bSDyyFs7KIsKngZ</td>
+<td>Freaky Friday</td>
+<td>Freaky Friday (feat. Chris Brown)</td>
+<td align="right">0.57</td>
+</tr>
+<tr>
+<td>Zedd</td>
+<td align="right">3607049</td>
+<td align="right">86</td>
+<td align="right">184732</td>
+<td align="right">0.171</td>
+<td>https://api.spotify.com/v1/audio-analysis/09IStsImFySgyp0pIQdqAc</td>
+<td align="right">0.753</td>
+<td align="right">184732</td>
+<td align="right">0.657</td>
+<td>09IStsImFySgyp0pIQdqAc</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.112</td>
+<td align="right">-3.061</td>
+<td>1</td>
+<td align="right">0.0449</td>
+<td align="right">107.01</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/09IStsImFySgyp0pIQdqAc</td>
+<td>audio_features</td>
+<td>spotify:track:09IStsImFySgyp0pIQdqAc</td>
+<td align="right">0.437</td>
+<td align="right">435</td>
+<td align="right">113</td>
+<td align="right">87</td>
+<td>1/23/2018</td>
+<td align="right">2018</td>
+<td>09IStsImFySgyp0pIQdqAc</td>
+<td>The Middle</td>
+<td>The Middle</td>
+<td align="right">0.7</td>
+</tr>
+<tr>
+<td>Post Malone</td>
+<td align="right">8814534</td>
+<td align="right">96</td>
+<td align="right">221440</td>
+<td align="right">0.58</td>
+<td>https://api.spotify.com/v1/audio-analysis/3swc6WTsr7rl9DqQKQA55C</td>
+<td align="right">0.739</td>
+<td align="right">221440</td>
+<td align="right">0.559</td>
+<td>3swc6WTsr7rl9DqQKQA55C</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.112</td>
+<td align="right">-8.011</td>
+<td>1</td>
+<td align="right">0.117</td>
+<td align="right">140.124</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/3swc6WTsr7rl9DqQKQA55C</td>
+<td>audio_features</td>
+<td>spotify:track:3swc6WTsr7rl9DqQKQA55C</td>
+<td align="right">0.439</td>
+<td align="right">522</td>
+<td align="right">350</td>
+<td align="right">88</td>
+<td>4/27/2018</td>
+<td align="right">2018</td>
+<td>3swc6WTsr7rl9DqQKQA55C</td>
+<td>Psycho</td>
+<td>Psycho (feat. Ty Dolla $ign)</td>
+<td align="right">0.74</td>
+</tr>
+<tr>
+<td>BlocBoy JB</td>
+<td align="right">524474</td>
+<td align="right">79</td>
+<td align="right">181263</td>
+<td align="right">0.00104</td>
+<td>https://api.spotify.com/v1/audio-analysis/4qKcDkK6siZ7Jp1Jb4m0aL</td>
+<td align="right">0.922</td>
+<td align="right">181263</td>
+<td align="right">0.581</td>
+<td>4qKcDkK6siZ7Jp1Jb4m0aL</td>
+<td align="right">5.86E-05</td>
+<td align="right">10</td>
+<td align="right">0.105</td>
+<td align="right">-7.495</td>
+<td>1</td>
+<td align="right">0.27</td>
+<td align="right">140.022</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/4qKcDkK6siZ7Jp1Jb4m0aL</td>
+<td>audio_features</td>
+<td>spotify:track:4qKcDkK6siZ7Jp1Jb4m0aL</td>
+<td align="right">0.595</td>
+<td align="right">453</td>
+<td align="right">302</td>
+<td align="right">86</td>
+<td>2/9/2018</td>
+<td align="right">2018</td>
+<td>4qKcDkK6siZ7Jp1Jb4m0aL</td>
+<td>Look Alive</td>
+<td>Look Alive (feat. Drake)</td>
+<td align="right">0.62</td>
+</tr>
+<tr>
+<td>Kendrick Lamar</td>
+<td align="right">11295285</td>
+<td align="right">91</td>
+<td align="right">232186</td>
+<td align="right">0.0605</td>
+<td>https://api.spotify.com/v1/audio-analysis/3GCdLUSnKSMJhs4Tj6CV3s</td>
+<td align="right">0.698</td>
+<td align="right">232187</td>
+<td align="right">0.633</td>
+<td>3GCdLUSnKSMJhs4Tj6CV3s</td>
+<td align="right">0.000194</td>
+<td align="right">8</td>
+<td align="right">0.0926</td>
+<td align="right">-4.946</td>
+<td>1</td>
+<td align="right">0.0597</td>
+<td align="right">96.924</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/3GCdLUSnKSMJhs4Tj6CV3s</td>
+<td>audio_features</td>
+<td>spotify:track:3GCdLUSnKSMJhs4Tj6CV3s</td>
+<td align="right">0.552</td>
+<td align="right">563</td>
+<td align="right">173</td>
+<td align="right">82</td>
+<td>2/9/2018</td>
+<td align="right">2018</td>
+<td>3GCdLUSnKSMJhs4Tj6CV3s</td>
+<td>All the Stars</td>
+<td>All The Stars (with SZA)</td>
+<td align="right">0.595</td>
+</tr>
+<tr>
+<td>The Weeknd</td>
+<td align="right">11295285</td>
+<td align="right">91</td>
+<td align="right">211440</td>
+<td align="right">0.0762</td>
+<td>https://api.spotify.com/v1/audio-analysis/77UjLW8j5UAGAGVGhR5oUK</td>
+<td align="right">0.735</td>
+<td align="right">211440</td>
+<td align="right">0.677</td>
+<td>77UjLW8j5UAGAGVGhR5oUK</td>
+<td align="right">2.17E-05</td>
+<td align="right">2</td>
+<td align="right">0.111</td>
+<td align="right">-4.979</td>
+<td>1</td>
+<td align="right">0.093</td>
+<td align="right">100.584</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/77UjLW8j5UAGAGVGhR5oUK</td>
+<td>audio_features</td>
+<td>spotify:track:77UjLW8j5UAGAGVGhR5oUK</td>
+<td align="right">0.188</td>
+<td align="right">453</td>
+<td align="right">248</td>
+<td align="right">80</td>
+<td>2/9/2018</td>
+<td align="right">2018</td>
+<td>77UjLW8j5UAGAGVGhR5oUK</td>
+<td>Pray for Me</td>
+<td>Pray For Me (with Kendrick Lamar)</td>
+<td align="right">0.575</td>
+</tr>
+<tr>
+<td>Migos</td>
+<td align="right">7825287</td>
+<td align="right">87</td>
+<td align="right">190288</td>
+<td align="right">0.00299</td>
+<td>https://api.spotify.com/v1/audio-analysis/2UVbBKQOdFAekPTRsnkzcf</td>
+<td align="right">0.815</td>
+<td align="right">190288</td>
+<td align="right">0.816</td>
+<td>2UVbBKQOdFAekPTRsnkzcf</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0.159</td>
+<td align="right">-5.474</td>
+<td>1</td>
+<td align="right">0.269</td>
+<td align="right">181.967</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/2UVbBKQOdFAekPTRsnkzcf</td>
+<td>audio_features</td>
+<td>spotify:track:2UVbBKQOdFAekPTRsnkzcf</td>
+<td align="right">0.498</td>
+<td align="right">819</td>
+<td align="right">264</td>
+<td align="right">80</td>
+<td>1/26/2018</td>
+<td align="right">2018</td>
+<td>2UVbBKQOdFAekPTRsnkzcf</td>
+<td>Stir Fry</td>
+<td>Stir Fry</td>
+<td align="right">0.62</td>
+</tr>
+<tr>
+<td>Bebe Rexha</td>
+<td align="right">2663593</td>
+<td align="right">87</td>
+<td align="right">163870</td>
+<td align="right">0.047</td>
+<td>https://api.spotify.com/v1/audio-analysis/7iDa6hUg2VgEL1o1HjmfBn</td>
+<td align="right">0.643</td>
+<td align="right">163870</td>
+<td align="right">0.783</td>
+<td>7iDa6hUg2VgEL1o1HjmfBn</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">0.083</td>
+<td align="right">-6.458</td>
+<td>1</td>
+<td align="right">0.0856</td>
+<td align="right">154.084</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/7iDa6hUg2VgEL1o1HjmfBn</td>
+<td>audio_features</td>
+<td>spotify:track:7iDa6hUg2VgEL1o1HjmfBn</td>
+<td align="right">0.579</td>
+<td align="right">224</td>
+<td align="right">148</td>
+<td align="right">85</td>
+<td>8/11/2017</td>
+<td align="right">2017</td>
+<td>7iDa6hUg2VgEL1o1HjmfBn</td>
+<td>Meant to Be</td>
+<td>Meant to Be (feat. Florida Georgia Line)</td>
+<td align="right">0.44</td>
+</tr>
+<tr>
+<td>Drake</td>
+<td align="right">29562448</td>
+<td align="right">100</td>
+<td align="right">198973</td>
+<td align="right">0.0332</td>
+<td>https://api.spotify.com/v1/audio-analysis/6DCZcSspjsKoFjzjrWoCdn</td>
+<td align="right">0.754</td>
+<td align="right">198973</td>
+<td align="right">0.449</td>
+<td>6DCZcSspjsKoFjzjrWoCdn</td>
+<td align="right">8.29E-05</td>
+<td align="right">7</td>
+<td align="right">0.552</td>
+<td align="right">-9.211</td>
+<td>1</td>
+<td align="right">0.109</td>
+<td align="right">77.169</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/6DCZcSspjsKoFjzjrWoCdn</td>
+<td>audio_features</td>
+<td>spotify:track:6DCZcSspjsKoFjzjrWoCdn</td>
+<td align="right">0.357</td>
+<td align="right">463</td>
+<td align="right">154</td>
+<td align="right">89</td>
+<td>6/29/2018</td>
+<td align="right">2018</td>
+<td>6DCZcSspjsKoFjzjrWoCdn</td>
+<td>God&#39;s Plan</td>
+<td>God&#39;s Plan</td>
+<td align="right">0.695</td>
+</tr>
+<tr>
+<td>Drake</td>
+<td align="right">29562447</td>
+<td align="right">100</td>
+<td align="right">255866</td>
+<td align="right">0.00531</td>
+<td>https://api.spotify.com/v1/audio-analysis/4haJoBPbPj9QFKNpp9e8kx</td>
+<td align="right">0.654</td>
+<td align="right">255867</td>
+<td align="right">0.839</td>
+<td>4haJoBPbPj9QFKNpp9e8kx</td>
+<td align="right">0</td>
+<td align="right">9</td>
+<td align="right">0.308</td>
+<td align="right">-5.076</td>
+<td>0</td>
+<td align="right">0.443</td>
+<td align="right">74.886</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/4haJoBPbPj9QFKNpp9e8kx</td>
+<td>audio_features</td>
+<td>spotify:track:4haJoBPbPj9QFKNpp9e8kx</td>
+<td align="right">0.549</td>
+<td align="right">743</td>
+<td align="right">386</td>
+<td align="right">61</td>
+<td>1/20/2018</td>
+<td align="right">2018</td>
+<td>4haJoBPbPj9QFKNpp9e8kx</td>
+<td>Diplomatic Immunity</td>
+<td>Diplomatic Immunity</td>
+<td align="right">0.665</td>
+</tr>
+<tr>
+<td>Bruno Mars</td>
+<td align="right">18257600</td>
+<td align="right">90</td>
+<td align="right">217288</td>
+<td align="right">0.0185</td>
+<td>https://api.spotify.com/v1/audio-analysis/3Vo4wInECJQuz9BIBMOu8i</td>
+<td align="right">0.704</td>
+<td align="right">217289</td>
+<td align="right">0.859</td>
+<td>3Vo4wInECJQuz9BIBMOu8i</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0215</td>
+<td align="right">-4.877</td>
+<td>0</td>
+<td align="right">0.0996</td>
+<td align="right">105.115</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/3Vo4wInECJQuz9BIBMOu8i</td>
+<td>audio_features</td>
+<td>spotify:track:3Vo4wInECJQuz9BIBMOu8i</td>
+<td align="right">0.926</td>
+<td align="right">311</td>
+<td align="right">226</td>
+<td align="right">81</td>
+<td>12/20/2017</td>
+<td align="right">2017</td>
+<td>3Vo4wInECJQuz9BIBMOu8i</td>
+<td>Finesse</td>
+<td>Finesse (Remix) [feat. Cardi B]</td>
+<td align="right">0.4</td>
+</tr>
+<tr>
+<td>Justin Timberlake</td>
+<td align="right">7277303</td>
+<td align="right">83</td>
+<td align="right">293946</td>
+<td align="right">0.0354</td>
+<td>https://api.spotify.com/v1/audio-analysis/1L3NV7VrCiuE8C5QlhdeQL</td>
+<td align="right">0.745</td>
+<td align="right">293947</td>
+<td align="right">0.579</td>
+<td>1L3NV7VrCiuE8C5QlhdeQL</td>
+<td align="right">0.0118</td>
+<td align="right">1</td>
+<td align="right">0.246</td>
+<td align="right">-5.771</td>
+<td>1</td>
+<td align="right">0.138</td>
+<td align="right">97.002</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/1L3NV7VrCiuE8C5QlhdeQL</td>
+<td>audio_features</td>
+<td>spotify:track:1L3NV7VrCiuE8C5QlhdeQL</td>
+<td align="right">0.645</td>
+<td align="right">582</td>
+<td align="right">129</td>
+<td align="right">56</td>
+<td>1/5/2018</td>
+<td align="right">2018</td>
+<td>1L3NV7VrCiuE8C5QlhdeQL</td>
+<td>Filthy</td>
+<td>Filthy</td>
+<td align="right">0.635</td>
+</tr>
+<tr>
+<td>Cardi B</td>
+<td align="right">5190606</td>
+<td align="right">95</td>
+<td align="right">223712</td>
+<td align="right">0.0659</td>
+<td>https://api.spotify.com/v1/audio-analysis/6KBYefIoo7KydImq1uUQlL</td>
+<td align="right">0.926</td>
+<td align="right">223713</td>
+<td align="right">0.703</td>
+<td>6KBYefIoo7KydImq1uUQlL</td>
+<td align="right">0</td>
+<td align="right">11</td>
+<td align="right">0.231</td>
+<td align="right">-6.337</td>
+<td>0</td>
+<td align="right">0.103</td>
+<td align="right">125.022</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/6KBYefIoo7KydImq1uUQlL</td>
+<td>audio_features</td>
+<td>spotify:track:6KBYefIoo7KydImq1uUQlL</td>
+<td align="right">0.485</td>
+<td align="right">852</td>
+<td align="right">246</td>
+<td align="right">79</td>
+<td>4/6/2018</td>
+<td align="right">2018</td>
+<td>6KBYefIoo7KydImq1uUQlL</td>
+<td>Bodak Yellow</td>
+<td>Bodak Yellow</td>
+<td align="right">0.625</td>
+</tr>
+<tr>
+<td>Sam Smith</td>
+<td align="right">7341436</td>
+<td align="right">90</td>
+<td align="right">201000</td>
+<td align="right">0.615</td>
+<td>https://api.spotify.com/v1/audio-analysis/3VlbOrM6nYPprVvzBZllE5</td>
+<td align="right">0.661</td>
+<td align="right">201000</td>
+<td align="right">0.373</td>
+<td>3VlbOrM6nYPprVvzBZllE5</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.177</td>
+<td align="right">-8.249</td>
+<td>1</td>
+<td align="right">0.0505</td>
+<td align="right">91.5</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/3VlbOrM6nYPprVvzBZllE5</td>
+<td>audio_features</td>
+<td>spotify:track:3VlbOrM6nYPprVvzBZllE5</td>
+<td align="right">0.523</td>
+<td align="right">500</td>
+<td align="right">99</td>
+<td align="right">78</td>
+<td>11/3/2017</td>
+<td align="right">2017</td>
+<td>3VlbOrM6nYPprVvzBZllE5</td>
+<td>Too Good at Goodbyes</td>
+<td>Too Good At Goodbyes</td>
+<td align="right">0.275</td>
+</tr>
+<tr>
+<td>Post Malone</td>
+<td align="right">8814552</td>
+<td align="right">96</td>
+<td align="right">218146</td>
+<td align="right">0.117</td>
+<td>https://api.spotify.com/v1/audio-analysis/0e7ipj03S05BNilyu5bRzt</td>
+<td align="right">0.587</td>
+<td align="right">218147</td>
+<td align="right">0.535</td>
+<td>0e7ipj03S05BNilyu5bRzt</td>
+<td align="right">6.56E-05</td>
+<td align="right">5</td>
+<td align="right">0.131</td>
+<td align="right">-6.09</td>
+<td>0</td>
+<td align="right">0.0898</td>
+<td align="right">159.847</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/0e7ipj03S05BNilyu5bRzt</td>
+<td>audio_features</td>
+<td>spotify:track:0e7ipj03S05BNilyu5bRzt</td>
+<td align="right">0.14</td>
+<td align="right">576</td>
+<td align="right">232</td>
+<td align="right">90</td>
+<td>4/27/2018</td>
+<td align="right">2018</td>
+<td>0e7ipj03S05BNilyu5bRzt</td>
+<td>Rockstar</td>
+<td>rockstar (feat. 21 Savage)</td>
+<td align="right">0.715</td>
+</tr>
+<tr>
+<td>Imagine Dragons</td>
+<td align="right">14251370</td>
+<td align="right">94</td>
+<td align="right">187146</td>
+<td align="right">0.00671</td>
+<td>https://api.spotify.com/v1/audio-analysis/1zB4vmk8tFRmM9UULNzbLB</td>
+<td align="right">0.605</td>
+<td align="right">187147</td>
+<td align="right">0.822</td>
+<td>1zB4vmk8tFRmM9UULNzbLB</td>
+<td align="right">0.134</td>
+<td align="right">0</td>
+<td align="right">0.147</td>
+<td align="right">-4.833</td>
+<td>1</td>
+<td align="right">0.0438</td>
+<td align="right">167.997</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/1zB4vmk8tFRmM9UULNzbLB</td>
+<td>audio_features</td>
+<td>spotify:track:1zB4vmk8tFRmM9UULNzbLB</td>
+<td align="right">0.288</td>
+<td align="right">231</td>
+<td align="right">87</td>
+<td align="right">87</td>
+<td>6/23/2017</td>
+<td align="right">2017</td>
+<td>1zB4vmk8tFRmM9UULNzbLB</td>
+<td>Thunder</td>
+<td>Thunder</td>
+<td align="right">0.8</td>
+</tr>
+<tr>
+<td>Ed Sheeran</td>
+<td align="right">36262200</td>
+<td align="right">93</td>
+<td align="right">263400</td>
+<td align="right">0.163</td>
+<td>https://api.spotify.com/v1/audio-analysis/0tgVpDi06FyKpA1z0VMD4v</td>
+<td align="right">0.599</td>
+<td align="right">263400</td>
+<td align="right">0.448</td>
+<td>0tgVpDi06FyKpA1z0VMD4v</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.106</td>
+<td align="right">-6.312</td>
+<td>1</td>
+<td align="right">0.0232</td>
+<td align="right">95.05</td>
+<td align="right">3</td>
+<td>https://api.spotify.com/v1/tracks/0tgVpDi06FyKpA1z0VMD4v</td>
+<td>audio_features</td>
+<td>spotify:track:0tgVpDi06FyKpA1z0VMD4v</td>
+<td align="right">0.168</td>
+<td align="right">345</td>
+<td align="right">144</td>
+<td align="right">88</td>
+<td>3/3/2017</td>
+<td align="right">2017</td>
+<td>0tgVpDi06FyKpA1z0VMD4v</td>
+<td>Perfect</td>
+<td>Perfect</td>
+<td align="right">0.48</td>
+</tr>
+<tr>
+<td>Lil Pump</td>
+<td align="right">4624775</td>
+<td align="right">90</td>
+<td align="right">124055</td>
+<td align="right">0.239</td>
+<td>https://api.spotify.com/v1/audio-analysis/43ZyHQITOjhciSUUNPVRHc</td>
+<td align="right">0.936</td>
+<td align="right">124056</td>
+<td align="right">0.523</td>
+<td>43ZyHQITOjhciSUUNPVRHc</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.117</td>
+<td align="right">-6.71</td>
+<td>1</td>
+<td align="right">0.0597</td>
+<td align="right">119.889</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/43ZyHQITOjhciSUUNPVRHc</td>
+<td>audio_features</td>
+<td>spotify:track:43ZyHQITOjhciSUUNPVRHc</td>
+<td align="right">0.699</td>
+<td align="right">510</td>
+<td align="right">143</td>
+<td align="right">79</td>
+<td>10/6/2017</td>
+<td align="right">2017</td>
+<td>43ZyHQITOjhciSUUNPVRHc</td>
+<td>Gucci Gang</td>
+<td>Gucci Gang</td>
+<td align="right">0.3</td>
+</tr>
+<tr>
+<td>Migos</td>
+<td align="right">7825291</td>
+<td align="right">87</td>
+<td align="right">303076</td>
+<td align="right">0.0338</td>
+<td>https://api.spotify.com/v1/audio-analysis/4wFjTWCunQFKtukqrNijEt</td>
+<td align="right">0.896</td>
+<td align="right">303077</td>
+<td align="right">0.515</td>
+<td>4wFjTWCunQFKtukqrNijEt</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0.317</td>
+<td align="right">-5.395</td>
+<td>1</td>
+<td align="right">0.183</td>
+<td align="right">138.016</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/4wFjTWCunQFKtukqrNijEt</td>
+<td>audio_features</td>
+<td>spotify:track:4wFjTWCunQFKtukqrNijEt</td>
+<td align="right">0.174</td>
+<td align="right">1187</td>
+<td align="right">477</td>
+<td align="right">80</td>
+<td>1/26/2018</td>
+<td align="right">2018</td>
+<td>4wFjTWCunQFKtukqrNijEt</td>
+<td>MotorSport</td>
+<td>MotorSport</td>
+<td align="right">0.73</td>
+</tr>
+<tr>
+<td>Calvin Harris</td>
+<td align="right">14169940</td>
+<td align="right">91</td>
+<td align="right">214846</td>
+<td align="right">0.037</td>
+<td>https://api.spotify.com/v1/audio-analysis/7ef4DlsgrMEH11cDZd32M6</td>
+<td align="right">0.791</td>
+<td align="right">214847</td>
+<td align="right">0.862</td>
+<td>7ef4DlsgrMEH11cDZd32M6</td>
+<td align="right">2.19E-05</td>
+<td align="right">9</td>
+<td align="right">0.0814</td>
+<td align="right">-3.24</td>
+<td>0</td>
+<td align="right">0.11</td>
+<td align="right">123.994</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/7ef4DlsgrMEH11cDZd32M6</td>
+<td>audio_features</td>
+<td>spotify:track:7ef4DlsgrMEH11cDZd32M6</td>
+<td align="right">0.592</td>
+<td align="right">355</td>
+<td align="right">90</td>
+<td align="right">89</td>
+<td>4/6/2018</td>
+<td align="right">2018</td>
+<td>7ef4DlsgrMEH11cDZd32M6</td>
+<td>ONE KISS</td>
+<td>One Kiss (with Dua Lipa)</td>
+<td align="right">0.655</td>
+</tr>
+<tr>
+<td>Keala Settle</td>
+<td align="right">411384</td>
+<td align="right">0</td>
+<td align="right">234706</td>
+<td align="right">0.00583</td>
+<td>https://api.spotify.com/v1/audio-analysis/45aBsnKRWUzhwbcqOJLwfe</td>
+<td align="right">0.284</td>
+<td align="right">234707</td>
+<td align="right">0.704</td>
+<td>45aBsnKRWUzhwbcqOJLwfe</td>
+<td align="right">0.000115</td>
+<td align="right">2</td>
+<td align="right">0.0424</td>
+<td align="right">-7.276</td>
+<td>1</td>
+<td align="right">0.186</td>
+<td align="right">191.702</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/45aBsnKRWUzhwbcqOJLwfe</td>
+<td>audio_features</td>
+<td>spotify:track:45aBsnKRWUzhwbcqOJLwfe</td>
+<td align="right">0.1</td>
+<td align="right">545</td>
+<td align="right">146</td>
+<td align="right">82</td>
+<td>12/8/2017</td>
+<td align="right">2017</td>
+<td>45aBsnKRWUzhwbcqOJLwfe</td>
+<td>THIS IS ME</td>
+<td>This Is Me</td>
+<td align="right">0.42</td>
+</tr>
+<tr>
+<td>George Ezra</td>
+<td align="right">1504696</td>
+<td align="right">82</td>
+<td align="right">201287</td>
+<td align="right">0.286</td>
+<td>https://api.spotify.com/v1/audio-analysis/4ofwffwvvnbSkrMSCKQDaC</td>
+<td align="right">0.672</td>
+<td align="right">201287</td>
+<td align="right">0.735</td>
+<td>4ofwffwvvnbSkrMSCKQDaC</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.242</td>
+<td align="right">-4.733</td>
+<td>1</td>
+<td align="right">0.0457</td>
+<td align="right">115.741</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/4ofwffwvvnbSkrMSCKQDaC</td>
+<td>audio_features</td>
+<td>spotify:track:4ofwffwvvnbSkrMSCKQDaC</td>
+<td align="right">0.754</td>
+<td align="right">385</td>
+<td align="right">92</td>
+<td align="right">89</td>
+<td>3/23/2018</td>
+<td align="right">2018</td>
+<td>4ofwffwvvnbSkrMSCKQDaC</td>
+<td>SHOTGUN</td>
+<td>Shotgun</td>
+<td align="right">0.67</td>
+</tr>
+<tr>
+<td>Dua Lipa</td>
+<td align="right">7666478</td>
+<td align="right">91</td>
+<td align="right">217946</td>
+<td align="right">0.0403</td>
+<td>https://api.spotify.com/v1/audio-analysis/76cy1WJvNGJTj78UqeA5zr</td>
+<td align="right">0.836</td>
+<td align="right">217947</td>
+<td align="right">0.544</td>
+<td>76cy1WJvNGJTj78UqeA5zr</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0824</td>
+<td align="right">-5.975</td>
+<td>1</td>
+<td align="right">0.0943</td>
+<td align="right">97.028</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/76cy1WJvNGJTj78UqeA5zr</td>
+<td>audio_features</td>
+<td>spotify:track:76cy1WJvNGJTj78UqeA5zr</td>
+<td align="right">0.51</td>
+<td align="right">555</td>
+<td align="right">148</td>
+<td align="right">86</td>
+<td>6/2/2017</td>
+<td align="right">2017</td>
+<td>76cy1WJvNGJTj78UqeA5zr</td>
+<td>IDGAF</td>
+<td>IDGAF</td>
+<td align="right">0.37</td>
+</tr>
+<tr>
+<td>Portugal. The Man</td>
+<td align="right">812977</td>
+<td align="right">76</td>
+<td align="right">163253</td>
+<td align="right">0.0417</td>
+<td>https://api.spotify.com/v1/audio-analysis/6QgjcU0zLnzq5OrUoSZ3OK</td>
+<td align="right">0.801</td>
+<td align="right">163253</td>
+<td align="right">0.795</td>
+<td>6QgjcU0zLnzq5OrUoSZ3OK</td>
+<td align="right">0.000113</td>
+<td align="right">1</td>
+<td align="right">0.0717</td>
+<td align="right">-5.115</td>
+<td>0</td>
+<td align="right">0.0504</td>
+<td align="right">79.028</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/6QgjcU0zLnzq5OrUoSZ3OK</td>
+<td>audio_features</td>
+<td>spotify:track:6QgjcU0zLnzq5OrUoSZ3OK</td>
+<td align="right">0.754</td>
+<td align="right">425</td>
+<td align="right">128</td>
+<td align="right">82</td>
+<td>6/16/2017</td>
+<td align="right">2017</td>
+<td>6QgjcU0zLnzq5OrUoSZ3OK</td>
+<td>FEEL IT STILL</td>
+<td>Feel It Still</td>
+<td align="right">0.43</td>
+</tr>
+<tr>
+<td>Marshmello</td>
+<td align="right">6694230</td>
+<td align="right">90</td>
+<td align="right">202620</td>
+<td align="right">0.205</td>
+<td>https://api.spotify.com/v1/audio-analysis/08bNPGLD8AhKpnnERrAc6G</td>
+<td align="right">0.626</td>
+<td align="right">202621</td>
+<td align="right">0.88</td>
+<td>08bNPGLD8AhKpnnERrAc6G</td>
+<td align="right">0</td>
+<td align="right">9</td>
+<td align="right">0.128</td>
+<td align="right">-2.384</td>
+<td>0</td>
+<td align="right">0.0504</td>
+<td align="right">95.079</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/08bNPGLD8AhKpnnERrAc6G</td>
+<td>audio_features</td>
+<td>spotify:track:08bNPGLD8AhKpnnERrAc6G</td>
+<td align="right">0.534</td>
+<td align="right">548</td>
+<td align="right">146</td>
+<td align="right">87</td>
+<td>2/9/2018</td>
+<td align="right">2018</td>
+<td>08bNPGLD8AhKpnnERrAc6G</td>
+<td>FRIENDS</td>
+<td>FRIENDS</td>
+<td align="right">0.705</td>
+</tr>
+<tr>
+<td>Ramz</td>
+<td align="right">121433</td>
+<td align="right">65</td>
+<td align="right">202826</td>
+<td align="right">0.185</td>
+<td>https://api.spotify.com/v1/audio-analysis/2U5cq89GCnsR1yixKkC8d5</td>
+<td align="right">0.45</td>
+<td align="right">202827</td>
+<td align="right">0.465</td>
+<td>2U5cq89GCnsR1yixKkC8d5</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0782</td>
+<td align="right">-7.867</td>
+<td>0</td>
+<td align="right">0.268</td>
+<td align="right">70.231</td>
+<td align="right">3</td>
+<td>https://api.spotify.com/v1/tracks/2U5cq89GCnsR1yixKkC8d5</td>
+<td>audio_features</td>
+<td>spotify:track:2U5cq89GCnsR1yixKkC8d5</td>
+<td align="right">0.788</td>
+<td align="right">598</td>
+<td align="right">120</td>
+<td align="right">75</td>
+<td>12/1/2017</td>
+<td align="right">2017</td>
+<td>2U5cq89GCnsR1yixKkC8d5</td>
+<td>BARKING</td>
+<td>Barking</td>
+<td align="right">0.225</td>
+</tr>
+<tr>
+<td>Eminem</td>
+<td align="right">22112157</td>
+<td align="right">95</td>
+<td align="right">221013</td>
+<td align="right">0.142</td>
+<td>https://api.spotify.com/v1/audio-analysis/1cS0TgbR263ey9jn0MwD2s</td>
+<td align="right">0.748</td>
+<td align="right">221013</td>
+<td align="right">0.749</td>
+<td>1cS0TgbR263ey9jn0MwD2s</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.0713</td>
+<td align="right">-5.916</td>
+<td>0</td>
+<td align="right">0.516</td>
+<td align="right">90.09</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/1cS0TgbR263ey9jn0MwD2s</td>
+<td>audio_features</td>
+<td>spotify:track:1cS0TgbR263ey9jn0MwD2s</td>
+<td align="right">0.659</td>
+<td align="right">841</td>
+<td align="right">341</td>
+<td align="right">81</td>
+<td>12/15/2017</td>
+<td align="right">2017</td>
+<td>1cS0TgbR263ey9jn0MwD2s</td>
+<td>RIVER</td>
+<td>River (feat. Ed Sheeran)</td>
+<td align="right">0.26</td>
+</tr>
+<tr>
+<td>JENNIE</td>
+<td align="right">99632</td>
+<td align="right">72</td>
+<td align="right">169566</td>
+<td align="right">0.128</td>
+<td>https://api.spotify.com/v1/audio-analysis/2wVDWtLKXunswWecARNILj</td>
+<td align="right">0.681</td>
+<td align="right">168461</td>
+<td align="right">0.666</td>
+<td>2wVDWtLKXunswWecARNILj</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0.127</td>
+<td align="right">-5.264</td>
+<td>0</td>
+<td align="right">0.162</td>
+<td align="right">95.028</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/2wVDWtLKXunswWecARNILj</td>
+<td>audio_features</td>
+<td>spotify:track:2wVDWtLKXunswWecARNILj</td>
+<td align="right">0.413</td>
+<td align="right">270</td>
+<td align="right">134</td>
+<td align="right">80</td>
+<td>11/12/2018</td>
+<td align="right">2018</td>
+<td>2wVDWtLKXunswWecARNILj</td>
+<td>SOLO</td>
+<td>SOLO</td>
+<td align="right">0.6</td>
+</tr>
+<tr>
+<td>Hugh Jackman</td>
+<td align="right">411384</td>
+<td align="right">0</td>
+<td align="right">302146</td>
+<td align="right">0.000239</td>
+<td>https://api.spotify.com/v1/audio-analysis/4ylWMuGbMXNDgDd8lErEle</td>
+<td align="right">0.417</td>
+<td align="right">302147</td>
+<td align="right">0.824</td>
+<td>4ylWMuGbMXNDgDd8lErEle</td>
+<td align="right">0.0545</td>
+<td align="right">11</td>
+<td align="right">0.0725</td>
+<td align="right">-7.36</td>
+<td>0</td>
+<td align="right">0.105</td>
+<td align="right">157.92</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/4ylWMuGbMXNDgDd8lErEle</td>
+<td>audio_features</td>
+<td>spotify:track:4ylWMuGbMXNDgDd8lErEle</td>
+<td align="right">0.4</td>
+<td align="right">726</td>
+<td align="right">174</td>
+<td align="right">80</td>
+<td>12/8/2017</td>
+<td align="right">2017</td>
+<td>4ylWMuGbMXNDgDd8lErEle</td>
+<td>THE GREATEST SHOW</td>
+<td>The Greatest Show</td>
+<td align="right">0.135</td>
+</tr>
+<tr>
+<td>Ed Sheeran</td>
+<td align="right">36262219</td>
+<td align="right">93</td>
+<td align="right">233712</td>
+<td align="right">0.581</td>
+<td>https://api.spotify.com/v1/audio-analysis/7qiZfU4dY1lWllzX7mPBI3</td>
+<td align="right">0.825</td>
+<td align="right">233713</td>
+<td align="right">0.652</td>
+<td>7qiZfU4dY1lWllzX7mPBI3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.0931</td>
+<td align="right">-3.183</td>
+<td>0</td>
+<td align="right">0.0802</td>
+<td align="right">95.977</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/7qiZfU4dY1lWllzX7mPBI3</td>
+<td>audio_features</td>
+<td>spotify:track:7qiZfU4dY1lWllzX7mPBI3</td>
+<td align="right">0.931</td>
+<td align="right">737</td>
+<td align="right">159</td>
+<td align="right">86</td>
+<td>3/3/2017</td>
+<td align="right">2017</td>
+<td>7qiZfU4dY1lWllzX7mPBI3</td>
+<td>SHAPE OF YOU</td>
+<td>Shape of You</td>
+<td align="right">0.605</td>
+</tr>
+<tr>
+<td>Zac Efron</td>
+<td align="right">411384</td>
+<td align="right">0</td>
+<td align="right">217440</td>
+<td align="right">0.0716</td>
+<td>https://api.spotify.com/v1/audio-analysis/65fpYBrI8o2cfrwf2US4gq</td>
+<td align="right">0.684</td>
+<td align="right">217440</td>
+<td align="right">0.619</td>
+<td>65fpYBrI8o2cfrwf2US4gq</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">0.122</td>
+<td align="right">-7.005</td>
+<td>1</td>
+<td align="right">0.0386</td>
+<td align="right">125.046</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/65fpYBrI8o2cfrwf2US4gq</td>
+<td>audio_features</td>
+<td>spotify:track:65fpYBrI8o2cfrwf2US4gq</td>
+<td align="right">0.284</td>
+<td align="right">439</td>
+<td align="right">148</td>
+<td align="right">81</td>
+<td>12/8/2017</td>
+<td align="right">2017</td>
+<td>65fpYBrI8o2cfrwf2US4gq</td>
+<td>REWRITE THE STARS</td>
+<td>Rewrite The Stars</td>
+<td align="right">0.185</td>
+</tr>
+<tr>
+<td>B Young</td>
+<td align="right">78392</td>
+<td align="right">65</td>
+<td align="right">173153</td>
+<td align="right">0.279</td>
+<td>https://api.spotify.com/v1/audio-analysis/4PzsYXrHh4r2BxtpNjtvoF</td>
+<td align="right">0.791</td>
+<td align="right">173154</td>
+<td align="right">0.473</td>
+<td>4PzsYXrHh4r2BxtpNjtvoF</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">0.0959</td>
+<td align="right">-9.86</td>
+<td>0</td>
+<td align="right">0.25</td>
+<td align="right">95.948</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/4PzsYXrHh4r2BxtpNjtvoF</td>
+<td>audio_features</td>
+<td>spotify:track:4PzsYXrHh4r2BxtpNjtvoF</td>
+<td align="right">0.603</td>
+<td align="right">398</td>
+<td align="right">136</td>
+<td align="right">69</td>
+<td>1/5/2018</td>
+<td align="right">2018</td>
+<td>4PzsYXrHh4r2BxtpNjtvoF</td>
+<td>JUMANJI</td>
+<td>Jumanji</td>
+<td align="right">0.65</td>
+</tr>
+<tr>
+<td>Jason Derulo</td>
+<td align="right">6209902</td>
+<td align="right">85</td>
+<td align="right">187521</td>
+<td align="right">0.0233</td>
+<td>https://api.spotify.com/v1/audio-analysis/2z4pcBLQXF2BXKFvd0BuB6</td>
+<td align="right">0.845</td>
+<td align="right">187521</td>
+<td align="right">0.709</td>
+<td>2z4pcBLQXF2BXKFvd0BuB6</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">0.094</td>
+<td align="right">-4.547</td>
+<td>0</td>
+<td align="right">0.0714</td>
+<td align="right">98.062</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/2z4pcBLQXF2BXKFvd0BuB6</td>
+<td>audio_features</td>
+<td>spotify:track:2z4pcBLQXF2BXKFvd0BuB6</td>
+<td align="right">0.62</td>
+<td align="right">404</td>
+<td align="right">284</td>
+<td align="right">76</td>
+<td>11/10/2017</td>
+<td align="right">2017</td>
+<td>2z4pcBLQXF2BXKFvd0BuB6</td>
+<td>TIP TOE</td>
+<td>Tip Toe (feat. French Montana)</td>
+<td align="right">0.17</td>
+</tr>
+<tr>
+<td>Jess Glynne</td>
+<td align="right">1148974</td>
+<td align="right">84</td>
+<td align="right">193923</td>
+<td align="right">0.0228</td>
+<td>https://api.spotify.com/v1/audio-analysis/083Qf6hn6sFL6xiOHlZUyn</td>
+<td align="right">0.623</td>
+<td align="right">193924</td>
+<td align="right">0.851</td>
+<td>083Qf6hn6sFL6xiOHlZUyn</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.12</td>
+<td align="right">-3.111</td>
+<td>1</td>
+<td align="right">0.0409</td>
+<td align="right">100.063</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/083Qf6hn6sFL6xiOHlZUyn</td>
+<td>audio_features</td>
+<td>spotify:track:083Qf6hn6sFL6xiOHlZUyn</td>
+<td align="right">0.4</td>
+<td align="right">547</td>
+<td align="right">103</td>
+<td align="right">81</td>
+<td>5/3/2018</td>
+<td align="right">2018</td>
+<td>083Qf6hn6sFL6xiOHlZUyn</td>
+<td>I&#39;LL BE THERE</td>
+<td>I&#39;ll Be There</td>
+<td align="right">0.595</td>
+</tr>
+<tr>
+<td>Banx &amp; Ranx</td>
+<td align="right">6338</td>
+<td align="right">64</td>
+<td align="right">190920</td>
+<td align="right">0.0387</td>
+<td>https://api.spotify.com/v1/audio-analysis/1HagMz5nWk1HmevNCBOxF3</td>
+<td align="right">0.671</td>
+<td align="right">190921</td>
+<td align="right">0.834</td>
+<td>1HagMz5nWk1HmevNCBOxF3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.454</td>
+<td align="right">-3.928</td>
+<td>0</td>
+<td align="right">0.0885</td>
+<td align="right">113.021</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/1HagMz5nWk1HmevNCBOxF3</td>
+<td>audio_features</td>
+<td>spotify:track:1HagMz5nWk1HmevNCBOxF3</td>
+<td align="right">0.454</td>
+<td align="right">556</td>
+<td align="right">336</td>
+<td align="right">74</td>
+<td>3/15/2018</td>
+<td align="right">2018</td>
+<td>1HagMz5nWk1HmevNCBOxF3</td>
+<td>ANSWERPHONE</td>
+<td>Answerphone (feat. Yxng Bane)</td>
+<td align="right">0.605</td>
+</tr>
+<tr>
+<td>Blackbear</td>
+<td align="right">1678465</td>
+<td align="right">81</td>
+<td align="right">211127</td>
+<td align="right">0.31</td>
+<td>https://api.spotify.com/v1/audio-analysis/1nMYtxDrONcoGnKRvxTwPv</td>
+<td align="right">0.716</td>
+<td align="right">211128</td>
+<td align="right">0.812</td>
+<td>1nMYtxDrONcoGnKRvxTwPv</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.551</td>
+<td align="right">-5.233</td>
+<td>1</td>
+<td align="right">0.344</td>
+<td align="right">133.047</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/1nMYtxDrONcoGnKRvxTwPv</td>
+<td>audio_features</td>
+<td>spotify:track:1nMYtxDrONcoGnKRvxTwPv</td>
+<td align="right">0.385</td>
+<td align="right">584</td>
+<td align="right">149</td>
+<td align="right">72</td>
+<td>4/21/2017</td>
+<td align="right">2017</td>
+<td>1nMYtxDrONcoGnKRvxTwPv</td>
+<td>I MISS YOU</td>
+<td>i miss the old u</td>
+<td align="right">0.095</td>
+</tr>
+<tr>
+<td>Tom Walker</td>
+<td align="right">232141</td>
+<td align="right">75</td>
+<td align="right">185863</td>
+<td align="right">0.0153</td>
+<td>https://api.spotify.com/v1/audio-analysis/6lOWoTqVnAWXchddtTH31W</td>
+<td align="right">0.586</td>
+<td align="right">185863</td>
+<td align="right">0.624</td>
+<td>6lOWoTqVnAWXchddtTH31W</td>
+<td align="right">1.78E-06</td>
+<td align="right">5</td>
+<td align="right">0.133</td>
+<td align="right">-5.946</td>
+<td>1</td>
+<td align="right">0.113</td>
+<td align="right">68.976</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/6lOWoTqVnAWXchddtTH31W</td>
+<td>audio_features</td>
+<td>spotify:track:6lOWoTqVnAWXchddtTH31W</td>
+<td align="right">0.267</td>
+<td align="right">398</td>
+<td align="right">129</td>
+<td align="right">81</td>
+<td>10/13/2017</td>
+<td align="right">2017</td>
+<td>6lOWoTqVnAWXchddtTH31W</td>
+<td>LEAVE A LIGHT ON</td>
+<td>Leave a Light On</td>
+<td align="right">0.335</td>
+</tr>
+<tr>
+<td>Rita Ora</td>
+<td align="right">3058201</td>
+<td align="right">86</td>
+<td align="right">215064</td>
+<td align="right">0.0364</td>
+<td>https://api.spotify.com/v1/audio-analysis/7EI6Iki24tBHAMxtb4xQN2</td>
+<td align="right">0.628</td>
+<td align="right">215064</td>
+<td align="right">0.797</td>
+<td>7EI6Iki24tBHAMxtb4xQN2</td>
+<td align="right">0</td>
+<td align="right">11</td>
+<td align="right">0.104</td>
+<td align="right">-3.953</td>
+<td>0</td>
+<td align="right">0.0596</td>
+<td align="right">106.93</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/7EI6Iki24tBHAMxtb4xQN2</td>
+<td>audio_features</td>
+<td>spotify:track:7EI6Iki24tBHAMxtb4xQN2</td>
+<td align="right">0.321</td>
+<td align="right">536</td>
+<td align="right">123</td>
+<td align="right">80</td>
+<td>10/20/2017</td>
+<td align="right">2017</td>
+<td>7EI6Iki24tBHAMxtb4xQN2</td>
+<td>ANYWHERE</td>
+<td>Anywhere</td>
+<td align="right">0.175</td>
+</tr>
+<tr>
+<td>XXXTENTACION</td>
+<td align="right">8289443</td>
+<td align="right">98</td>
+<td align="right">166605</td>
+<td align="right">0.258</td>
+<td>https://api.spotify.com/v1/audio-analysis/3ee8Jmje8o58CHK66QrVC2</td>
+<td align="right">0.74</td>
+<td align="right">166606</td>
+<td align="right">0.613</td>
+<td>3ee8Jmje8o58CHK66QrVC2</td>
+<td align="right">0.00372</td>
+<td align="right">8</td>
+<td align="right">0.123</td>
+<td align="right">-4.88</td>
+<td>1</td>
+<td align="right">0.145</td>
+<td align="right">75.023</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/3ee8Jmje8o58CHK66QrVC2</td>
+<td>audio_features</td>
+<td>spotify:track:3ee8Jmje8o58CHK66QrVC2</td>
+<td align="right">0.473</td>
+<td align="right">375</td>
+<td align="right">67</td>
+<td align="right">93</td>
+<td>3/16/2018</td>
+<td align="right">2018</td>
+<td>3ee8Jmje8o58CHK66QrVC2</td>
+<td>SAD</td>
+<td>SAD!</td>
+<td align="right">0.655</td>
+</tr>
+<tr>
+<td>M.O</td>
+<td align="right">125277</td>
+<td align="right">64</td>
+<td align="right">214253</td>
+<td align="right">0.181</td>
+<td>https://api.spotify.com/v1/audio-analysis/70eehEqNug7oAhozjhG21t</td>
+<td align="right">0.809</td>
+<td align="right">214253</td>
+<td align="right">0.703</td>
+<td>70eehEqNug7oAhozjhG21t</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">0.0913</td>
+<td align="right">-4.411</td>
+<td>1</td>
+<td align="right">0.0417</td>
+<td align="right">109.994</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/70eehEqNug7oAhozjhG21t</td>
+<td>audio_features</td>
+<td>spotify:track:70eehEqNug7oAhozjhG21t</td>
+<td align="right">0.773</td>
+<td align="right">760</td>
+<td align="right">168</td>
+<td align="right">70</td>
+<td>1/25/2018</td>
+<td align="right">2018</td>
+<td>70eehEqNug7oAhozjhG21t</td>
+<td>BAD VIBE</td>
+<td>Bad Vibe</td>
+<td align="right">0.55</td>
+</tr>
+<tr>
+<td>Jonas Blue</td>
+<td align="right">1410186</td>
+<td align="right">85</td>
+<td align="right">194407</td>
+<td align="right">0.323</td>
+<td>https://api.spotify.com/v1/audio-analysis/3u1S1OmAUhx5DRlLrXqyp3</td>
+<td align="right">0.69</td>
+<td align="right">194408</td>
+<td align="right">0.784</td>
+<td>3u1S1OmAUhx5DRlLrXqyp3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.203</td>
+<td align="right">-4.653</td>
+<td>1</td>
+<td align="right">0.032</td>
+<td align="right">106.066</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/3u1S1OmAUhx5DRlLrXqyp3</td>
+<td>audio_features</td>
+<td>spotify:track:3u1S1OmAUhx5DRlLrXqyp3</td>
+<td align="right">0.669</td>
+<td align="right">456</td>
+<td align="right">98</td>
+<td align="right">89</td>
+<td>5/25/2018</td>
+<td align="right">2018</td>
+<td>3u1S1OmAUhx5DRlLrXqyp3</td>
+<td>RISE</td>
+<td>Rise</td>
+<td align="right">0.685</td>
+</tr>
+<tr>
+<td>benny blanco</td>
+<td align="right">28728</td>
+<td align="right">83</td>
+<td align="right">173799</td>
+<td align="right">0.555</td>
+<td>https://api.spotify.com/v1/audio-analysis/0d2iYfpKoM0QCKvcLCkBao</td>
+<td align="right">0.56</td>
+<td align="right">173800</td>
+<td align="right">0.68</td>
+<td>0d2iYfpKoM0QCKvcLCkBao</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.116</td>
+<td align="right">-7.648</td>
+<td>0</td>
+<td align="right">0.321</td>
+<td align="right">89.391</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/0d2iYfpKoM0QCKvcLCkBao</td>
+<td>audio_features</td>
+<td>spotify:track:0d2iYfpKoM0QCKvcLCkBao</td>
+<td align="right">0.319</td>
+<td align="right">589</td>
+<td align="right">382</td>
+<td align="right">94</td>
+<td>7/12/2018</td>
+<td align="right">2018</td>
+<td>0d2iYfpKoM0QCKvcLCkBao</td>
+<td>EASTSIDE</td>
+<td>Eastside (with Halsey &amp; Khalid)</td>
+<td align="right">0.72</td>
+</tr>
+<tr>
+<td>B Young</td>
+<td align="right">78392</td>
+<td align="right">65</td>
+<td align="right">211852</td>
+<td align="right">0.404</td>
+<td>https://api.spotify.com/v1/audio-analysis/5f14ylFBAuwqVHXvafqtmd</td>
+<td align="right">0.629</td>
+<td align="right">211853</td>
+<td align="right">0.601</td>
+<td>5f14ylFBAuwqVHXvafqtmd</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">0.0582</td>
+<td align="right">-7.508</td>
+<td>0</td>
+<td align="right">0.309</td>
+<td align="right">199.921</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/5f14ylFBAuwqVHXvafqtmd</td>
+<td>audio_features</td>
+<td>spotify:track:5f14ylFBAuwqVHXvafqtmd</td>
+<td align="right">0.612</td>
+<td align="right">609</td>
+<td align="right">139</td>
+<td align="right">71</td>
+<td>6/21/2018</td>
+<td align="right">2018</td>
+<td>5f14ylFBAuwqVHXvafqtmd</td>
+<td>079ME</td>
+<td>079ME</td>
+<td align="right">0.625</td>
+</tr>
+<tr>
+<td>Queen Naija</td>
+<td align="right">526939</td>
+<td align="right">68</td>
+<td align="right">212174</td>
+<td align="right">0.295</td>
+<td>https://api.spotify.com/v1/audio-analysis/4A58lXGBRCg2cumRXTRxHO</td>
+<td align="right">0.737</td>
+<td align="right">212175</td>
+<td align="right">0.542</td>
+<td>4A58lXGBRCg2cumRXTRxHO</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.103</td>
+<td align="right">-7.593</td>
+<td>1</td>
+<td align="right">0.0732</td>
+<td align="right">119.973</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/4A58lXGBRCg2cumRXTRxHO</td>
+<td>audio_features</td>
+<td>spotify:track:4A58lXGBRCg2cumRXTRxHO</td>
+<td align="right">0.385</td>
+<td align="right">468</td>
+<td align="right">139</td>
+<td align="right">67</td>
+<td>7/27/2018</td>
+<td align="right">2018</td>
+<td>4A58lXGBRCg2cumRXTRxHO</td>
+<td>BUTTERFLIES</td>
+<td>Butterflies</td>
+<td align="right">0.615</td>
+</tr>
+<tr>
+<td>Calvin Harris</td>
+<td align="right">14169954</td>
+<td align="right">91</td>
+<td align="right">213309</td>
+<td align="right">0.0119</td>
+<td>https://api.spotify.com/v1/audio-analysis/5N5k9nd479b1xpDZ4usjrg</td>
+<td align="right">0.781</td>
+<td align="right">213309</td>
+<td align="right">0.768</td>
+<td>5N5k9nd479b1xpDZ4usjrg</td>
+<td align="right">4.91E-06</td>
+<td align="right">11</td>
+<td align="right">0.325</td>
+<td align="right">-5.991</td>
+<td>1</td>
+<td align="right">0.0394</td>
+<td align="right">123.07</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/5N5k9nd479b1xpDZ4usjrg</td>
+<td>audio_features</td>
+<td>spotify:track:5N5k9nd479b1xpDZ4usjrg</td>
+<td align="right">0.486</td>
+<td align="right">566</td>
+<td align="right">379</td>
+<td align="right">93</td>
+<td>8/17/2018</td>
+<td align="right">2018</td>
+<td>5N5k9nd479b1xpDZ4usjrg</td>
+<td>PROMISES</td>
+<td>Promises (with Sam Smith)</td>
+<td align="right">0.725</td>
+</tr>
+<tr>
+<td>Loud Luxury</td>
+<td align="right">49193</td>
+<td align="right">80</td>
+<td align="right">163216</td>
+<td align="right">0.0476</td>
+<td>https://api.spotify.com/v1/audio-analysis/21RzyxY3EFaxVy6K4RqaU9</td>
+<td align="right">0.752</td>
+<td align="right">163216</td>
+<td align="right">0.764</td>
+<td>21RzyxY3EFaxVy6K4RqaU9</td>
+<td align="right">9.44E-05</td>
+<td align="right">1</td>
+<td align="right">0.0543</td>
+<td align="right">-4.399</td>
+<td>1</td>
+<td align="right">0.038</td>
+<td align="right">121.958</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/21RzyxY3EFaxVy6K4RqaU9</td>
+<td>audio_features</td>
+<td>spotify:track:21RzyxY3EFaxVy6K4RqaU9</td>
+<td align="right">0.582</td>
+<td align="right">591</td>
+<td align="right">104</td>
+<td align="right">82</td>
+<td>10/27/2017</td>
+<td align="right">2017</td>
+<td>21RzyxY3EFaxVy6K4RqaU9</td>
+<td>BODY</td>
+<td>Body</td>
+<td align="right">0.32</td>
+</tr>
+<tr>
+<td>Chase Rice</td>
+<td align="right">484069</td>
+<td align="right">67</td>
+<td align="right">234186</td>
+<td align="right">0.0275</td>
+<td>https://api.spotify.com/v1/audio-analysis/4ruSkRHMQKBPtYAYpMf0oR</td>
+<td align="right">0.44</td>
+<td align="right">234187</td>
+<td align="right">0.889</td>
+<td>4ruSkRHMQKBPtYAYpMf0oR</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.143</td>
+<td align="right">-4.723</td>
+<td>1</td>
+<td align="right">0.0462</td>
+<td align="right">166.074</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/4ruSkRHMQKBPtYAYpMf0oR</td>
+<td>audio_features</td>
+<td>spotify:track:4ruSkRHMQKBPtYAYpMf0oR</td>
+<td align="right">0.409</td>
+<td align="right">444</td>
+<td align="right">165</td>
+<td align="right">59</td>
+<td>11/17/2017</td>
+<td align="right">2017</td>
+<td>4ruSkRHMQKBPtYAYpMf0oR</td>
+<td>3 LIONS</td>
+<td>Three Chords &amp; The Truth</td>
+<td align="right">0.27</td>
+</tr>
+<tr>
+<td>Tiësto</td>
+<td align="right">3835893</td>
+<td align="right">83</td>
+<td align="right">215759</td>
+<td align="right">0.374</td>
+<td>https://api.spotify.com/v1/audio-analysis/4kWO6O1BUXcZmaxitpVUwp</td>
+<td align="right">0.747</td>
+<td align="right">215760</td>
+<td align="right">0.834</td>
+<td>4kWO6O1BUXcZmaxitpVUwp</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0.0586</td>
+<td align="right">-2.867</td>
+<td>0</td>
+<td align="right">0.045</td>
+<td align="right">128.005</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/4kWO6O1BUXcZmaxitpVUwp</td>
+<td>audio_features</td>
+<td>spotify:track:4kWO6O1BUXcZmaxitpVUwp</td>
+<td align="right">0.687</td>
+<td align="right">603</td>
+<td align="right">179</td>
+<td align="right">88</td>
+<td>5/18/2018</td>
+<td align="right">2018</td>
+<td>4kWO6O1BUXcZmaxitpVUwp</td>
+<td>JACKIE CHAN</td>
+<td>Jackie Chan</td>
+<td align="right">0.75</td>
+</tr>
+<tr>
+<td>Luis Fonsi</td>
+<td align="right">4337874</td>
+<td align="right">84</td>
+<td align="right">228826</td>
+<td align="right">0.228</td>
+<td>https://api.spotify.com/v1/audio-analysis/6rPO02ozF3bM7NnOV4h6s2</td>
+<td align="right">0.653</td>
+<td align="right">228827</td>
+<td align="right">0.816</td>
+<td>6rPO02ozF3bM7NnOV4h6s2</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0.0967</td>
+<td align="right">-4.353</td>
+<td>1</td>
+<td align="right">0.167</td>
+<td align="right">178.086</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/6rPO02ozF3bM7NnOV4h6s2</td>
+<td>audio_features</td>
+<td>spotify:track:6rPO02ozF3bM7NnOV4h6s2</td>
+<td align="right">0.816</td>
+<td align="right">663</td>
+<td align="right">277</td>
+<td align="right">81</td>
+<td>4/17/2017</td>
+<td align="right">2017</td>
+<td>6rPO02ozF3bM7NnOV4h6s2</td>
+<td>DESPACITO (REMIX)</td>
+<td>Despacito - Remix</td>
+<td align="right">0.695</td>
+</tr>
+<tr>
+<td>Pressa</td>
+<td align="right">24942</td>
+<td align="right">61</td>
+<td align="right">219088</td>
+<td align="right">0.0138</td>
+<td>https://api.spotify.com/v1/audio-analysis/1zDwQIp3BgbH9dSmYtPBDH</td>
+<td align="right">0.783</td>
+<td align="right">219089</td>
+<td align="right">0.694</td>
+<td>1zDwQIp3BgbH9dSmYtPBDH</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">0.11</td>
+<td align="right">-7.008</td>
+<td>0</td>
+<td align="right">0.358</td>
+<td align="right">160.034</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/1zDwQIp3BgbH9dSmYtPBDH</td>
+<td>audio_features</td>
+<td>spotify:track:1zDwQIp3BgbH9dSmYtPBDH</td>
+<td align="right">0.389</td>
+<td align="right">636</td>
+<td align="right">263</td>
+<td align="right">66</td>
+<td>10/2/2018</td>
+<td align="right">2018</td>
+<td>1zDwQIp3BgbH9dSmYtPBDH</td>
+<td>LONDON</td>
+<td>420 in London</td>
+<td align="right">0.585</td>
+</tr>
+<tr>
+<td>A$AP Rocky</td>
+<td align="right">4653571</td>
+<td align="right">87</td>
+<td align="right">205040</td>
+<td align="right">0.0609</td>
+<td>https://api.spotify.com/v1/audio-analysis/7ycWLEP1GsNjVvcjawXz3z</td>
+<td align="right">0.85</td>
+<td align="right">205040</td>
+<td align="right">0.569</td>
+<td>7ycWLEP1GsNjVvcjawXz3z</td>
+<td align="right">0.0816</td>
+<td align="right">5</td>
+<td align="right">0.1</td>
+<td align="right">-8.152</td>
+<td>0</td>
+<td align="right">0.136</td>
+<td align="right">80.02</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/7ycWLEP1GsNjVvcjawXz3z</td>
+<td>audio_features</td>
+<td>spotify:track:7ycWLEP1GsNjVvcjawXz3z</td>
+<td align="right">0.294</td>
+<td align="right">657</td>
+<td align="right">212</td>
+<td align="right">86</td>
+<td>5/25/2018</td>
+<td align="right">2018</td>
+<td>7ycWLEP1GsNjVvcjawXz3z</td>
+<td>PRAISE THE LORD (DA SHINE)</td>
+<td>Praise The Lord (Da Shine)</td>
+<td align="right">0.66</td>
+</tr>
+<tr>
+<td>Cardi B</td>
+<td align="right">5190637</td>
+<td align="right">95</td>
+<td align="right">177139</td>
+<td align="right">0.049</td>
+<td>https://api.spotify.com/v1/audio-analysis/5DfWF0jqMgZDCiu9zJENTA</td>
+<td align="right">0.767</td>
+<td align="right">177140</td>
+<td align="right">0.543</td>
+<td>5DfWF0jqMgZDCiu9zJENTA</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.115</td>
+<td align="right">-7.881</td>
+<td>0</td>
+<td align="right">0.103</td>
+<td align="right">106.029</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/5DfWF0jqMgZDCiu9zJENTA</td>
+<td>audio_features</td>
+<td>spotify:track:5DfWF0jqMgZDCiu9zJENTA</td>
+<td align="right">0.485</td>
+<td align="right">511</td>
+<td align="right">189</td>
+<td align="right">79</td>
+<td>4/6/2018</td>
+<td align="right">2018</td>
+<td>5DfWF0jqMgZDCiu9zJENTA</td>
+<td>RING RING</td>
+<td>Ring (feat. Kehlani)</td>
+<td align="right">0.67</td>
+</tr>
+<tr>
+<td>Billie Eilish</td>
+<td align="right">2667686</td>
+<td align="right">92</td>
+<td align="right">200379</td>
+<td align="right">0.816</td>
+<td>https://api.spotify.com/v1/audio-analysis/7hDVYcQq6MxkdJGweuCtl9</td>
+<td align="right">0.511</td>
+<td align="right">200379</td>
+<td align="right">0.363</td>
+<td>7hDVYcQq6MxkdJGweuCtl9</td>
+<td align="right">0.0317</td>
+<td align="right">4</td>
+<td align="right">0.084</td>
+<td align="right">-7.65</td>
+<td>0</td>
+<td align="right">0.041</td>
+<td align="right">144.892</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/7hDVYcQq6MxkdJGweuCtl9</td>
+<td>audio_features</td>
+<td>spotify:track:7hDVYcQq6MxkdJGweuCtl9</td>
+<td align="right">0.169</td>
+<td align="right">189</td>
+<td align="right">72</td>
+<td align="right">84</td>
+<td>12/22/2017</td>
+<td align="right">2017</td>
+<td>7hDVYcQq6MxkdJGweuCtl9</td>
+<td>OCEAN</td>
+<td>ocean eyes</td>
+<td align="right">0.43</td>
+</tr>
+<tr>
+<td>Liam Payne</td>
+<td align="right">411384</td>
+<td align="right">0</td>
+<td align="right">245453</td>
+<td align="right">0.0167</td>
+<td>https://api.spotify.com/v1/audio-analysis/66xn6tB8s3l8uhj02OGneE</td>
+<td align="right">0.541</td>
+<td align="right">245453</td>
+<td align="right">0.787</td>
+<td>66xn6tB8s3l8uhj02OGneE</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0.157</td>
+<td align="right">-4.618</td>
+<td>0</td>
+<td align="right">0.0331</td>
+<td align="right">113</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/66xn6tB8s3l8uhj02OGneE</td>
+<td>audio_features</td>
+<td>spotify:track:66xn6tB8s3l8uhj02OGneE</td>
+<td align="right">0.2</td>
+<td align="right">311</td>
+<td align="right">226</td>
+<td align="right">76</td>
+<td>2/9/2018</td>
+<td align="right">2018</td>
+<td>66xn6tB8s3l8uhj02OGneE</td>
+<td>FOR YOU (FIFTY SHADES FREED)</td>
+<td>For You (Fifty Shades Freed) (&amp; Rita Ora)</td>
+<td align="right">0.585</td>
+</tr>
+<tr>
+<td>David Guetta</td>
+<td align="right">16724189</td>
+<td align="right">91</td>
+<td align="right">195000</td>
+<td align="right">0.0723</td>
+<td>https://api.spotify.com/v1/audio-analysis/33IOhptvC2Qoy2UhjiHXLV</td>
+<td align="right">0.609</td>
+<td align="right">195000</td>
+<td align="right">0.726</td>
+<td>33IOhptvC2Qoy2UhjiHXLV</td>
+<td align="right">8.45E-06</td>
+<td align="right">5</td>
+<td align="right">0.0895</td>
+<td align="right">-4.346</td>
+<td>0</td>
+<td align="right">0.0414</td>
+<td align="right">93.958</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/33IOhptvC2Qoy2UhjiHXLV</td>
+<td>audio_features</td>
+<td>spotify:track:33IOhptvC2Qoy2UhjiHXLV</td>
+<td align="right">0.362</td>
+<td align="right">350</td>
+<td align="right">86</td>
+<td align="right">83</td>
+<td>3/22/2018</td>
+<td align="right">2018</td>
+<td>33IOhptvC2Qoy2UhjiHXLV</td>
+<td>FLAMES</td>
+<td>Flames</td>
+<td align="right">0.61</td>
+</tr>
+<tr>
+<td>Lil Wayne</td>
+<td align="right">6890981</td>
+<td align="right">93</td>
+<td align="right">249751</td>
+<td align="right">0.4</td>
+<td>https://api.spotify.com/v1/audio-analysis/4E3qImtJzRqLt8ZZyLceOE</td>
+<td align="right">0.746</td>
+<td align="right">249751</td>
+<td align="right">0.644</td>
+<td>4E3qImtJzRqLt8ZZyLceOE</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.095</td>
+<td align="right">-2.605</td>
+<td>1</td>
+<td align="right">0.232</td>
+<td align="right">146.178</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/4E3qImtJzRqLt8ZZyLceOE</td>
+<td>audio_features</td>
+<td>spotify:track:4E3qImtJzRqLt8ZZyLceOE</td>
+<td align="right">0.542</td>
+<td align="right">821</td>
+<td align="right">229</td>
+<td align="right">70</td>
+<td>9/28/2018</td>
+<td align="right">2018</td>
+<td>4E3qImtJzRqLt8ZZyLceOE</td>
+<td>STRANGERS</td>
+<td>Perfect Strangers</td>
+<td align="right">0.56</td>
+</tr>
+<tr>
+<td>Years &amp; Years</td>
+<td align="right">894016</td>
+<td align="right">76</td>
+<td align="right">189000</td>
+<td align="right">0.0615</td>
+<td>https://api.spotify.com/v1/audio-analysis/01k24g94i1JvkFLQmVEdCd</td>
+<td align="right">0.647</td>
+<td align="right">189000</td>
+<td align="right">0.853</td>
+<td>01k24g94i1JvkFLQmVEdCd</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.062</td>
+<td align="right">-4.516</td>
+<td>1</td>
+<td align="right">0.0904</td>
+<td align="right">103.846</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/01k24g94i1JvkFLQmVEdCd</td>
+<td>audio_features</td>
+<td>spotify:track:01k24g94i1JvkFLQmVEdCd</td>
+<td align="right">0.618</td>
+<td align="right">504</td>
+<td align="right">151</td>
+<td align="right">77</td>
+<td>5/10/2018</td>
+<td align="right">2018</td>
+<td>01k24g94i1JvkFLQmVEdCd</td>
+<td>IF YOU&#39;RE OVER ME</td>
+<td>If You&#39;re Over Me</td>
+<td align="right">0.57</td>
+</tr>
+<tr>
+<td>Shawn Mendes</td>
+<td align="right">13167600</td>
+<td align="right">90</td>
+<td align="right">211360</td>
+<td align="right">0.0573</td>
+<td>https://api.spotify.com/v1/audio-analysis/2QZ7WLBE8h2y1Y5Fb8RYbH</td>
+<td align="right">0.622</td>
+<td align="right">211360</td>
+<td align="right">0.712</td>
+<td>2QZ7WLBE8h2y1Y5Fb8RYbH</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.13</td>
+<td align="right">-7.321</td>
+<td>1</td>
+<td align="right">0.066</td>
+<td align="right">140.025</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/2QZ7WLBE8h2y1Y5Fb8RYbH</td>
+<td>audio_features</td>
+<td>spotify:track:2QZ7WLBE8h2y1Y5Fb8RYbH</td>
+<td align="right">0.487</td>
+<td align="right">333</td>
+<td align="right">97</td>
+<td align="right">85</td>
+<td>5/25/2018</td>
+<td align="right">2018</td>
+<td>2QZ7WLBE8h2y1Y5Fb8RYbH</td>
+<td>IN MY BLOOD</td>
+<td>In My Blood</td>
+<td align="right">0.67</td>
+</tr>
+<tr>
+<td>Lil Skies</td>
+<td align="right">1758918</td>
+<td align="right">85</td>
+<td align="right">211200</td>
+<td align="right">0.194</td>
+<td>https://api.spotify.com/v1/audio-analysis/5Cg98kiDYtCEHmjcKD0CJD</td>
+<td align="right">0.773</td>
+<td align="right">211200</td>
+<td align="right">0.602</td>
+<td>5Cg98kiDYtCEHmjcKD0CJD</td>
+<td align="right">0.000443</td>
+<td align="right">10</td>
+<td align="right">0.141</td>
+<td align="right">-6.384</td>
+<td>1</td>
+<td align="right">0.108</td>
+<td align="right">74.896</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/5Cg98kiDYtCEHmjcKD0CJD</td>
+<td>audio_features</td>
+<td>spotify:track:5Cg98kiDYtCEHmjcKD0CJD</td>
+<td align="right">0.442</td>
+<td align="right">595</td>
+<td align="right">388</td>
+<td align="right">75</td>
+<td>5/31/2018</td>
+<td align="right">2018</td>
+<td>5Cg98kiDYtCEHmjcKD0CJD</td>
+<td>I KNOW YOU</td>
+<td>I Know You (feat. Yung Pinch)</td>
+<td align="right">0.635</td>
+</tr>
+<tr>
+<td>Taylor Swift</td>
+<td align="right">16343324</td>
+<td align="right">89</td>
+<td align="right">232253</td>
+<td align="right">0.216</td>
+<td>https://api.spotify.com/v1/audio-analysis/6NFyWDv5CjfwuzoCkw47Xf</td>
+<td align="right">0.75</td>
+<td align="right">232253</td>
+<td align="right">0.404</td>
+<td>6NFyWDv5CjfwuzoCkw47Xf</td>
+<td align="right">0.000357</td>
+<td align="right">9</td>
+<td align="right">0.0911</td>
+<td align="right">-10.178</td>
+<td>0</td>
+<td align="right">0.0682</td>
+<td align="right">95.045</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/6NFyWDv5CjfwuzoCkw47Xf</td>
+<td>audio_features</td>
+<td>spotify:track:6NFyWDv5CjfwuzoCkw47Xf</td>
+<td align="right">0.0499</td>
+<td align="right">630</td>
+<td align="right">140</td>
+<td align="right">82</td>
+<td>11/10/2017</td>
+<td align="right">2017</td>
+<td>6NFyWDv5CjfwuzoCkw47Xf</td>
+<td>Delicate</td>
+<td>Delicate</td>
+<td align="right">0.335</td>
+</tr>
+<tr>
+<td>Taylor Swift</td>
+<td align="right">16343324</td>
+<td align="right">89</td>
+<td align="right">244826</td>
+<td align="right">0.00845</td>
+<td>https://api.spotify.com/v1/audio-analysis/2x0WlnmfG39ZuDmstl9xfX</td>
+<td align="right">0.649</td>
+<td align="right">244827</td>
+<td align="right">0.589</td>
+<td>2x0WlnmfG39ZuDmstl9xfX</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0.108</td>
+<td align="right">-6.237</td>
+<td>1</td>
+<td align="right">0.0558</td>
+<td align="right">159.073</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/2x0WlnmfG39ZuDmstl9xfX</td>
+<td>audio_features</td>
+<td>spotify:track:2x0WlnmfG39ZuDmstl9xfX</td>
+<td align="right">0.151</td>
+<td align="right">864</td>
+<td align="right">253</td>
+<td align="right">76</td>
+<td>11/10/2017</td>
+<td align="right">2017</td>
+<td>2x0WlnmfG39ZuDmstl9xfX</td>
+<td>End Game</td>
+<td>End Game</td>
+<td align="right">0.355</td>
+</tr>
+<tr>
+<td>Taylor Swift</td>
+<td align="right">16343324</td>
+<td align="right">89</td>
+<td align="right">211853</td>
+<td align="right">0.204</td>
+<td>https://api.spotify.com/v1/audio-analysis/1P17dC1amhFzptugyAO7Il</td>
+<td align="right">0.766</td>
+<td align="right">211853</td>
+<td align="right">0.709</td>
+<td>1P17dC1amhFzptugyAO7Il</td>
+<td align="right">1.41E-05</td>
+<td align="right">9</td>
+<td align="right">0.126</td>
+<td align="right">-6.471</td>
+<td>0</td>
+<td align="right">0.123</td>
+<td align="right">128.07</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/1P17dC1amhFzptugyAO7Il</td>
+<td>audio_features</td>
+<td>spotify:track:1P17dC1amhFzptugyAO7Il</td>
+<td align="right">0.506</td>
+<td align="right">636</td>
+<td align="right">134</td>
+<td align="right">79</td>
+<td>11/10/2017</td>
+<td align="right">2017</td>
+<td>1P17dC1amhFzptugyAO7Il</td>
+<td>Look What You Made Me Do</td>
+<td>Look What You Made Me Do</td>
+<td align="right">0.2</td>
+</tr>
+<tr>
+<td>P!nk</td>
+<td align="right">5305399</td>
+<td align="right">83</td>
+<td align="right">269600</td>
+<td align="right">0.0285</td>
+<td>https://api.spotify.com/v1/audio-analysis/0Qh38w01QRXK6KHIv0e3hb</td>
+<td align="right">0.489</td>
+<td align="right">269600</td>
+<td align="right">0.588</td>
+<td>0Qh38w01QRXK6KHIv0e3hb</td>
+<td align="right">2.11E-06</td>
+<td align="right">1</td>
+<td align="right">0.0906</td>
+<td align="right">-6.177</td>
+<td>1</td>
+<td align="right">0.0507</td>
+<td align="right">113.617</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/0Qh38w01QRXK6KHIv0e3hb</td>
+<td>audio_features</td>
+<td>spotify:track:0Qh38w01QRXK6KHIv0e3hb</td>
+<td align="right">0.187</td>
+<td align="right">357</td>
+<td align="right">107</td>
+<td align="right">78</td>
+<td>10/13/2017</td>
+<td align="right">2017</td>
+<td>0Qh38w01QRXK6KHIv0e3hb</td>
+<td>Beautiful Trauma</td>
+<td>What About Us</td>
+<td align="right">0.725</td>
+</tr>
+<tr>
+<td>Selena Gomez</td>
+<td align="right">12401621</td>
+<td align="right">91</td>
+<td align="right">207904</td>
+<td align="right">0.0945</td>
+<td>https://api.spotify.com/v1/audio-analysis/4hQ6UGyWQIGJmHSo0J88JW</td>
+<td align="right">0.601</td>
+<td align="right">207905</td>
+<td align="right">0.724</td>
+<td>4hQ6UGyWQIGJmHSo0J88JW</td>
+<td align="right">1.68E-06</td>
+<td align="right">6</td>
+<td align="right">0.12</td>
+<td align="right">-4.856</td>
+<td>1</td>
+<td align="right">0.0486</td>
+<td align="right">102.061</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/4hQ6UGyWQIGJmHSo0J88JW</td>
+<td>audio_features</td>
+<td>spotify:track:4hQ6UGyWQIGJmHSo0J88JW</td>
+<td align="right">0.508</td>
+<td align="right">13871</td>
+<td align="right">5251</td>
+<td align="right">85</td>
+<td>5/10/2018</td>
+<td align="right">2018</td>
+<td>4hQ6UGyWQIGJmHSo0J88JW</td>
+<td>Back To You</td>
+<td>Back To You - From 13 Reasons Why – Season 2 Soundtrack</td>
+<td align="right">0.69</td>
+</tr>
+<tr>
+<td>Selena Gomez</td>
+<td align="right">12401622</td>
+<td align="right">91</td>
+<td align="right">197993</td>
+<td align="right">0.129</td>
+<td>https://api.spotify.com/v1/audio-analysis/0tBbt8CrmxbjRP0pueQkyU</td>
+<td align="right">0.72</td>
+<td align="right">197993</td>
+<td align="right">0.807</td>
+<td>0tBbt8CrmxbjRP0pueQkyU</td>
+<td align="right">0</td>
+<td align="right">11</td>
+<td align="right">0.183</td>
+<td align="right">-4.59</td>
+<td>0</td>
+<td align="right">0.0432</td>
+<td align="right">124.946</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/0tBbt8CrmxbjRP0pueQkyU</td>
+<td>audio_features</td>
+<td>spotify:track:0tBbt8CrmxbjRP0pueQkyU</td>
+<td align="right">0.305</td>
+<td align="right">439</td>
+<td align="right">94</td>
+<td align="right">84</td>
+<td>10/25/2017</td>
+<td align="right">2017</td>
+<td>0tBbt8CrmxbjRP0pueQkyU</td>
+<td>Wolves</td>
+<td>Wolves</td>
+<td align="right">0.33</td>
+</tr>
+<tr>
+<td>Ed Sheeran</td>
+<td align="right">36262262</td>
+<td align="right">93</td>
+<td align="right">259550</td>
+<td align="right">0.779</td>
+<td>https://api.spotify.com/v1/audio-analysis/1bhUWB0zJMIKr9yVPrkEuI</td>
+<td align="right">0.587</td>
+<td align="right">259550</td>
+<td align="right">0.299</td>
+<td>1bhUWB0zJMIKr9yVPrkEuI</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.123</td>
+<td align="right">-7.365</td>
+<td>1</td>
+<td align="right">0.0263</td>
+<td align="right">94.992</td>
+<td align="right">3</td>
+<td>https://api.spotify.com/v1/tracks/1bhUWB0zJMIKr9yVPrkEuI</td>
+<td>audio_features</td>
+<td>spotify:track:1bhUWB0zJMIKr9yVPrkEuI</td>
+<td align="right">0.356</td>
+<td align="right">374</td>
+<td align="right">153</td>
+<td align="right">83</td>
+<td>11/30/2017</td>
+<td align="right">2017</td>
+<td>1bhUWB0zJMIKr9yVPrkEuI</td>
+<td>Perfect Duet</td>
+<td>Perfect Duet (Ed Sheeran &amp; Beyoncé)</td>
+<td align="right">0.385</td>
+</tr>
+<tr>
+<td>Kanye West</td>
+<td align="right">8783354</td>
+<td align="right">92</td>
+<td align="right">145506</td>
+<td align="right">0.123</td>
+<td>https://api.spotify.com/v1/audio-analysis/3U21A07gAloCc4P7J8rxcn</td>
+<td align="right">0.925</td>
+<td align="right">145507</td>
+<td align="right">0.31</td>
+<td>3U21A07gAloCc4P7J8rxcn</td>
+<td align="right">0</td>
+<td align="right">11</td>
+<td align="right">0.0931</td>
+<td align="right">-6.531</td>
+<td>0</td>
+<td align="right">0.291</td>
+<td align="right">121.927</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/3U21A07gAloCc4P7J8rxcn</td>
+<td>audio_features</td>
+<td>spotify:track:3U21A07gAloCc4P7J8rxcn</td>
+<td align="right">0.291</td>
+<td align="right">498</td>
+<td align="right">194</td>
+<td align="right">73</td>
+<td>6/1/2018</td>
+<td align="right">2018</td>
+<td>3U21A07gAloCc4P7J8rxcn</td>
+<td>All Mine</td>
+<td>All Mine</td>
+<td align="right">0.625</td>
+</tr>
+<tr>
+<td>Kenny Chesney</td>
+<td align="right">2181750</td>
+<td align="right">75</td>
+<td align="right">199626</td>
+<td align="right">0.0997</td>
+<td>https://api.spotify.com/v1/audio-analysis/2ZFrEp20VO25BXYhMxh0GW</td>
+<td align="right">0.602</td>
+<td align="right">199627</td>
+<td align="right">0.805</td>
+<td>2ZFrEp20VO25BXYhMxh0GW</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.172</td>
+<td align="right">-6.079</td>
+<td>1</td>
+<td align="right">0.0473</td>
+<td align="right">92.401</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/2ZFrEp20VO25BXYhMxh0GW</td>
+<td>audio_features</td>
+<td>spotify:track:2ZFrEp20VO25BXYhMxh0GW</td>
+<td align="right">0.322</td>
+<td align="right">366</td>
+<td align="right">128</td>
+<td align="right">70</td>
+<td>4/6/2018</td>
+<td align="right">2018</td>
+<td>2ZFrEp20VO25BXYhMxh0GW</td>
+<td>Get Along</td>
+<td>Get Along</td>
+<td align="right">0.605</td>
+</tr>
+<tr>
+<td>Kane Brown</td>
+<td align="right">1069220</td>
+<td align="right">79</td>
+<td align="right">179506</td>
+<td align="right">0.263</td>
+<td>https://api.spotify.com/v1/audio-analysis/1HXy5I3HTWq8OvxCn0z7G7</td>
+<td align="right">0.677</td>
+<td align="right">179507</td>
+<td align="right">0.556</td>
+<td>1HXy5I3HTWq8OvxCn0z7G7</td>
+<td align="right">0</td>
+<td align="right">9</td>
+<td align="right">0.105</td>
+<td align="right">-6.544</td>
+<td>1</td>
+<td align="right">0.0306</td>
+<td align="right">80.009</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/1HXy5I3HTWq8OvxCn0z7G7</td>
+<td>audio_features</td>
+<td>spotify:track:1HXy5I3HTWq8OvxCn0z7G7</td>
+<td align="right">0.521</td>
+<td align="right">297</td>
+<td align="right">93</td>
+<td align="right">79</td>
+<td>10/6/2017</td>
+<td align="right">2017</td>
+<td>1HXy5I3HTWq8OvxCn0z7G7</td>
+<td>Heaven</td>
+<td>Heaven</td>
+<td align="right">0.275</td>
+</tr>
+<tr>
+<td>Luke Combs</td>
+<td align="right">703221</td>
+<td align="right">80</td>
+<td align="right">221800</td>
+<td align="right">0.00585</td>
+<td>https://api.spotify.com/v1/audio-analysis/4gB7HrYHbJVJ5RFOjxmoq4</td>
+<td align="right">0.544</td>
+<td align="right">221800</td>
+<td align="right">0.781</td>
+<td>4gB7HrYHbJVJ5RFOjxmoq4</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.191</td>
+<td align="right">-6.16</td>
+<td>0</td>
+<td align="right">0.0311</td>
+<td align="right">144.075</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/4gB7HrYHbJVJ5RFOjxmoq4</td>
+<td>audio_features</td>
+<td>spotify:track:4gB7HrYHbJVJ5RFOjxmoq4</td>
+<td align="right">0.527</td>
+<td align="right">450</td>
+<td align="right">149</td>
+<td align="right">76</td>
+<td>6/2/2017</td>
+<td align="right">2017</td>
+<td>4gB7HrYHbJVJ5RFOjxmoq4</td>
+<td>One Number Away</td>
+<td>One Number Away</td>
+<td align="right">0.285</td>
+</tr>
+<tr>
+<td>Dan + Shay</td>
+<td align="right">619451</td>
+<td align="right">78</td>
+<td align="right">195986</td>
+<td align="right">0.0292</td>
+<td>https://api.spotify.com/v1/audio-analysis/7Il2yWQmsqKgSkLQvHTPUI</td>
+<td align="right">0.474</td>
+<td align="right">195987</td>
+<td align="right">0.594</td>
+<td>7Il2yWQmsqKgSkLQvHTPUI</td>
+<td align="right">0</td>
+<td align="right">11</td>
+<td align="right">0.133</td>
+<td align="right">-5.756</td>
+<td>1</td>
+<td align="right">0.0289</td>
+<td align="right">86.131</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/7Il2yWQmsqKgSkLQvHTPUI</td>
+<td>audio_features</td>
+<td>spotify:track:7Il2yWQmsqKgSkLQvHTPUI</td>
+<td align="right">0.503</td>
+<td align="right">329</td>
+<td align="right">105</td>
+<td align="right">77</td>
+<td>1/10/2018</td>
+<td align="right">2018</td>
+<td>7Il2yWQmsqKgSkLQvHTPUI</td>
+<td>Tequila</td>
+<td>Tequila</td>
+<td align="right">0.62</td>
+</tr>
+<tr>
+<td>Maroon 5</td>
+<td align="right">14375309</td>
+<td align="right">90</td>
+<td align="right">190642</td>
+<td align="right">0.0959</td>
+<td>https://api.spotify.com/v1/audio-analysis/6AvfZXpbb6r35DfF7gHPRq</td>
+<td align="right">0.655</td>
+<td align="right">190643</td>
+<td align="right">0.603</td>
+<td>6AvfZXpbb6r35DfF7gHPRq</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.107</td>
+<td align="right">-5.014</td>
+<td>1</td>
+<td align="right">0.0555</td>
+<td align="right">126.088</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/6AvfZXpbb6r35DfF7gHPRq</td>
+<td>audio_features</td>
+<td>spotify:track:6AvfZXpbb6r35DfF7gHPRq</td>
+<td align="right">0.452</td>
+<td align="right">473</td>
+<td align="right">110</td>
+<td align="right">72</td>
+<td>6/15/2018</td>
+<td align="right">2018</td>
+<td>6AvfZXpbb6r35DfF7gHPRq</td>
+<td>Wait</td>
+<td>Wait</td>
+<td align="right">0.65</td>
+</tr>
+<tr>
+<td>Imagine Dragons</td>
+<td align="right">14251420</td>
+<td align="right">94</td>
+<td align="right">201240</td>
+<td align="right">0.0362</td>
+<td>https://api.spotify.com/v1/audio-analysis/6Qn5zhYkTa37e91HC1D7lb</td>
+<td align="right">0.672</td>
+<td align="right">201240</td>
+<td align="right">0.655</td>
+<td>6Qn5zhYkTa37e91HC1D7lb</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">0.117</td>
+<td align="right">-5.021</td>
+<td>0</td>
+<td align="right">0.0311</td>
+<td align="right">134.945</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/6Qn5zhYkTa37e91HC1D7lb</td>
+<td>audio_features</td>
+<td>spotify:track:6Qn5zhYkTa37e91HC1D7lb</td>
+<td align="right">0.556</td>
+<td align="right">516</td>
+<td align="right">155</td>
+<td align="right">84</td>
+<td>6/23/2017</td>
+<td align="right">2017</td>
+<td>6Qn5zhYkTa37e91HC1D7lb</td>
+<td>Whatever It Takes</td>
+<td>Whatever It Takes</td>
+<td align="right">0.35</td>
+</tr>
+<tr>
+<td>Kanye West</td>
+<td align="right">8783354</td>
+<td align="right">92</td>
+<td align="right">274186</td>
+<td align="right">0.867</td>
+<td>https://api.spotify.com/v1/audio-analysis/0yhxBvedRdGxsPZHJNI4VA</td>
+<td align="right">0.752</td>
+<td align="right">274187</td>
+<td align="right">0.396</td>
+<td>0yhxBvedRdGxsPZHJNI4VA</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0.0486</td>
+<td align="right">-7.932</td>
+<td>1</td>
+<td align="right">0.411</td>
+<td align="right">116.016</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/0yhxBvedRdGxsPZHJNI4VA</td>
+<td>audio_features</td>
+<td>spotify:track:0yhxBvedRdGxsPZHJNI4VA</td>
+<td align="right">0.417</td>
+<td align="right">699</td>
+<td align="right">265</td>
+<td align="right">62</td>
+<td>6/1/2018</td>
+<td align="right">2018</td>
+<td>0yhxBvedRdGxsPZHJNI4VA</td>
+<td>I Thought About Killing You</td>
+<td>I Thought About Killing You</td>
+<td align="right">0.62</td>
+</tr>
+<tr>
+<td>Kanye West</td>
+<td align="right">8783356</td>
+<td align="right">92</td>
+<td align="right">123040</td>
+<td align="right">0.0393</td>
+<td>https://api.spotify.com/v1/audio-analysis/35KV2Nuib6jPMVN00O8iba</td>
+<td align="right">0.643</td>
+<td align="right">123040</td>
+<td align="right">0.646</td>
+<td>35KV2Nuib6jPMVN00O8iba</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">0.109</td>
+<td align="right">-2.442</td>
+<td>0</td>
+<td align="right">0.0629</td>
+<td align="right">80.174</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/35KV2Nuib6jPMVN00O8iba</td>
+<td>audio_features</td>
+<td>spotify:track:35KV2Nuib6jPMVN00O8iba</td>
+<td align="right">0.35</td>
+<td align="right">347</td>
+<td align="right">135</td>
+<td align="right">61</td>
+<td>6/1/2018</td>
+<td align="right">2018</td>
+<td>35KV2Nuib6jPMVN00O8iba</td>
+<td>No Mistakes</td>
+<td>No Mistakes</td>
+<td align="right">0.665</td>
+</tr>
+<tr>
+<td>Offset</td>
+<td align="right">5153672</td>
+<td align="right">89</td>
+<td align="right">172800</td>
+<td align="right">0.149</td>
+<td>https://api.spotify.com/v1/audio-analysis/7sO5G9EABYOXQKNPNiE9NR</td>
+<td align="right">0.88</td>
+<td align="right">172800</td>
+<td align="right">0.428</td>
+<td>7sO5G9EABYOXQKNPNiE9NR</td>
+<td align="right">5.07E-05</td>
+<td align="right">9</td>
+<td align="right">0.114</td>
+<td align="right">-8.28</td>
+<td>1</td>
+<td align="right">0.206</td>
+<td align="right">100.007</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/7sO5G9EABYOXQKNPNiE9NR</td>
+<td>audio_features</td>
+<td>spotify:track:7sO5G9EABYOXQKNPNiE9NR</td>
+<td align="right">0.333</td>
+<td align="right">726</td>
+<td align="right">241</td>
+<td align="right">85</td>
+<td>10/30/2017</td>
+<td align="right">2017</td>
+<td>7sO5G9EABYOXQKNPNiE9NR</td>
+<td>Ric Flair Drip</td>
+<td>Ric Flair Drip (&amp; Metro Boomin)</td>
+<td align="right">0.31</td>
+</tr>
+<tr>
+<td>Post Malone</td>
+<td align="right">8814633</td>
+<td align="right">96</td>
+<td align="right">227533</td>
+<td align="right">0.627</td>
+<td>https://api.spotify.com/v1/audio-analysis/32lItqlMi4LBhb4k0BaSaC</td>
+<td align="right">0.67</td>
+<td align="right">227533</td>
+<td align="right">0.654</td>
+<td>32lItqlMi4LBhb4k0BaSaC</td>
+<td align="right">1.02E-06</td>
+<td align="right">4</td>
+<td align="right">0.071</td>
+<td align="right">-5.944</td>
+<td>1</td>
+<td align="right">0.153</td>
+<td align="right">180.024</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/32lItqlMi4LBhb4k0BaSaC</td>
+<td>audio_features</td>
+<td>spotify:track:32lItqlMi4LBhb4k0BaSaC</td>
+<td align="right">0.438</td>
+<td align="right">756</td>
+<td align="right">199</td>
+<td align="right">83</td>
+<td>4/27/2018</td>
+<td align="right">2018</td>
+<td>32lItqlMi4LBhb4k0BaSaC</td>
+<td>Candy Paint</td>
+<td>Candy Paint</td>
+<td align="right">0.635</td>
+</tr>
+<tr>
+<td>J. Cole</td>
+<td align="right">6778722</td>
+<td align="right">88</td>
+<td align="right">315771</td>
+<td align="right">0.19</td>
+<td>https://api.spotify.com/v1/audio-analysis/5sWbwccBcyHsg5LEKWGZo9</td>
+<td align="right">0.675</td>
+<td align="right">315771</td>
+<td align="right">0.567</td>
+<td>5sWbwccBcyHsg5LEKWGZo9</td>
+<td align="right">1.77E-06</td>
+<td align="right">10</td>
+<td align="right">0.175</td>
+<td align="right">-9.147</td>
+<td>0</td>
+<td align="right">0.263</td>
+<td align="right">84.039</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/5sWbwccBcyHsg5LEKWGZo9</td>
+<td>audio_features</td>
+<td>spotify:track:5sWbwccBcyHsg5LEKWGZo9</td>
+<td align="right">0.658</td>
+<td align="right">960</td>
+<td align="right">382</td>
+<td align="right">67</td>
+<td>4/20/2018</td>
+<td align="right">2018</td>
+<td>5sWbwccBcyHsg5LEKWGZo9</td>
+<td>Brackets</td>
+<td>BRACKETS</td>
+<td align="right">0.605</td>
+</tr>
+<tr>
+<td>J. Cole</td>
+<td align="right">6778722</td>
+<td align="right">88</td>
+<td align="right">197821</td>
+<td align="right">0.626</td>
+<td>https://api.spotify.com/v1/audio-analysis/0Px86mRlxdB3YqpK6KXWlr</td>
+<td align="right">0.548</td>
+<td align="right">197822</td>
+<td align="right">0.472</td>
+<td>0Px86mRlxdB3YqpK6KXWlr</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.119</td>
+<td align="right">-8.343</td>
+<td>1</td>
+<td align="right">0.477</td>
+<td align="right">82.36</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/0Px86mRlxdB3YqpK6KXWlr</td>
+<td>audio_features</td>
+<td>spotify:track:0Px86mRlxdB3YqpK6KXWlr</td>
+<td align="right">0.138</td>
+<td align="right">584</td>
+<td align="right">290</td>
+<td align="right">65</td>
+<td>4/20/2018</td>
+<td align="right">2018</td>
+<td>0Px86mRlxdB3YqpK6KXWlr</td>
+<td>Once An Addict (Interlude)</td>
+<td>Once an Addict - Interlude</td>
+<td align="right">0.655</td>
+</tr>
+<tr>
+<td>J. Cole</td>
+<td align="right">6778723</td>
+<td align="right">88</td>
+<td align="right">286729</td>
+<td align="right">0.0607</td>
+<td>https://api.spotify.com/v1/audio-analysis/5Lgqu1th1KqlG97OF2gWGe</td>
+<td align="right">0.72</td>
+<td align="right">286730</td>
+<td align="right">0.626</td>
+<td>5Lgqu1th1KqlG97OF2gWGe</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.0728</td>
+<td align="right">-9.351</td>
+<td>1</td>
+<td align="right">0.397</td>
+<td align="right">75.032</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/5Lgqu1th1KqlG97OF2gWGe</td>
+<td>audio_features</td>
+<td>spotify:track:5Lgqu1th1KqlG97OF2gWGe</td>
+<td align="right">0.182</td>
+<td align="right">907</td>
+<td align="right">332</td>
+<td align="right">67</td>
+<td>4/20/2018</td>
+<td align="right">2018</td>
+<td>5Lgqu1th1KqlG97OF2gWGe</td>
+<td>Window Pain (Outro)</td>
+<td>Window Pain - Outro</td>
+<td align="right">0.68</td>
+</tr>
+<tr>
+<td>Charlie Puth</td>
+<td align="right">5792181</td>
+<td align="right">84</td>
+<td align="right">200853</td>
+<td align="right">0.211</td>
+<td>https://api.spotify.com/v1/audio-analysis/6wmAHw1szh5RCKSRjiXhPe</td>
+<td align="right">0.845</td>
+<td align="right">200853</td>
+<td align="right">0.561</td>
+<td>6wmAHw1szh5RCKSRjiXhPe</td>
+<td align="right">3.49E-06</td>
+<td align="right">1</td>
+<td align="right">0.0383</td>
+<td align="right">-5.253</td>
+<td>0</td>
+<td align="right">0.0778</td>
+<td align="right">109.974</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/6wmAHw1szh5RCKSRjiXhPe</td>
+<td>audio_features</td>
+<td>spotify:track:6wmAHw1szh5RCKSRjiXhPe</td>
+<td align="right">0.811</td>
+<td align="right">463</td>
+<td align="right">122</td>
+<td align="right">79</td>
+<td>5/11/2018</td>
+<td align="right">2018</td>
+<td>6wmAHw1szh5RCKSRjiXhPe</td>
+<td>How Long</td>
+<td>How Long</td>
+<td align="right">0.63</td>
+</tr>
+<tr>
+<td>Khalid</td>
+<td align="right">3957928</td>
+<td align="right">96</td>
+<td align="right">202546</td>
+<td align="right">0.199</td>
+<td>https://api.spotify.com/v1/audio-analysis/5Z3GHaZ6ec9bsiI5BenrbY</td>
+<td align="right">0.798</td>
+<td align="right">202547</td>
+<td align="right">0.539</td>
+<td>5Z3GHaZ6ec9bsiI5BenrbY</td>
+<td align="right">1.66E-05</td>
+<td align="right">1</td>
+<td align="right">0.165</td>
+<td align="right">-6.351</td>
+<td>1</td>
+<td align="right">0.0421</td>
+<td align="right">136.949</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/5Z3GHaZ6ec9bsiI5BenrbY</td>
+<td>audio_features</td>
+<td>spotify:track:5Z3GHaZ6ec9bsiI5BenrbY</td>
+<td align="right">0.394</td>
+<td align="right">315</td>
+<td align="right">85</td>
+<td align="right">85</td>
+<td>4/27/2017</td>
+<td align="right">2017</td>
+<td>5Z3GHaZ6ec9bsiI5BenrbY</td>
+<td>Young Dumb &amp; Broke</td>
+<td>Young Dumb &amp; Broke</td>
+<td align="right">0.335</td>
+</tr>
+<tr>
+<td>Demi Lovato</td>
+<td align="right">11708859</td>
+<td align="right">87</td>
+<td align="right">203760</td>
+<td align="right">0.0223</td>
+<td>https://api.spotify.com/v1/audio-analysis/3Du2K5dLzmduCNp6uwuaL0</td>
+<td align="right">0.702</td>
+<td align="right">203760</td>
+<td align="right">0.635</td>
+<td>3Du2K5dLzmduCNp6uwuaL0</td>
+<td align="right">0</td>
+<td align="right">11</td>
+<td align="right">0.283</td>
+<td align="right">-6.917</td>
+<td>0</td>
+<td align="right">0.265</td>
+<td align="right">144.004</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/3Du2K5dLzmduCNp6uwuaL0</td>
+<td>audio_features</td>
+<td>spotify:track:3Du2K5dLzmduCNp6uwuaL0</td>
+<td align="right">0.873</td>
+<td align="right">639</td>
+<td align="right">137</td>
+<td align="right">81</td>
+<td>9/29/2017</td>
+<td align="right">2017</td>
+<td>3Du2K5dLzmduCNp6uwuaL0</td>
+<td>Sorry Not Sorry</td>
+<td>Sorry Not Sorry</td>
+<td align="right">0.035</td>
+</tr>
+<tr>
+<td>Imagine Dragons</td>
+<td align="right">14251425</td>
+<td align="right">94</td>
+<td align="right">204346</td>
+<td align="right">0.0622</td>
+<td>https://api.spotify.com/v1/audio-analysis/0pqnGHJpmpxLKifKRmU6WP</td>
+<td align="right">0.776</td>
+<td align="right">204347</td>
+<td align="right">0.78</td>
+<td>0pqnGHJpmpxLKifKRmU6WP</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">0.081</td>
+<td align="right">-4.374</td>
+<td>0</td>
+<td align="right">0.128</td>
+<td align="right">124.949</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/0pqnGHJpmpxLKifKRmU6WP</td>
+<td>audio_features</td>
+<td>spotify:track:0pqnGHJpmpxLKifKRmU6WP</td>
+<td align="right">0.666</td>
+<td align="right">500</td>
+<td align="right">153</td>
+<td align="right">88</td>
+<td>6/23/2017</td>
+<td align="right">2017</td>
+<td>0pqnGHJpmpxLKifKRmU6WP</td>
+<td>Believer</td>
+<td>Believer</td>
+<td align="right">0.355</td>
+</tr>
+<tr>
+<td>Charlie Puth</td>
+<td align="right">5792181</td>
+<td align="right">84</td>
+<td align="right">208786</td>
+<td align="right">0.109</td>
+<td>https://api.spotify.com/v1/audio-analysis/5cF0dROlMOK5uNZtivgu50</td>
+<td align="right">0.775</td>
+<td align="right">208787</td>
+<td align="right">0.613</td>
+<td>5cF0dROlMOK5uNZtivgu50</td>
+<td align="right">2.33E-05</td>
+<td align="right">3</td>
+<td align="right">0.134</td>
+<td align="right">-4.586</td>
+<td>0</td>
+<td align="right">0.0542</td>
+<td align="right">100.066</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/5cF0dROlMOK5uNZtivgu50</td>
+<td>audio_features</td>
+<td>spotify:track:5cF0dROlMOK5uNZtivgu50</td>
+<td align="right">0.797</td>
+<td align="right">649</td>
+<td align="right">125</td>
+<td align="right">82</td>
+<td>5/11/2018</td>
+<td align="right">2018</td>
+<td>5cF0dROlMOK5uNZtivgu50</td>
+<td>Attention</td>
+<td>Attention</td>
+<td align="right">0.57</td>
+</tr>
+<tr>
+<td>21 Savage</td>
+<td align="right">5153675</td>
+<td align="right">89</td>
+<td align="right">220306</td>
+<td align="right">0.0151</td>
+<td>https://api.spotify.com/v1/audio-analysis/2fQrGHiQOvpL9UgPvtYy6G</td>
+<td align="right">0.884</td>
+<td align="right">220307</td>
+<td align="right">0.346</td>
+<td>2fQrGHiQOvpL9UgPvtYy6G</td>
+<td align="right">7.04E-06</td>
+<td align="right">8</td>
+<td align="right">0.0871</td>
+<td align="right">-8.228</td>
+<td>0</td>
+<td align="right">0.351</td>
+<td align="right">75.016</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/2fQrGHiQOvpL9UgPvtYy6G</td>
+<td>audio_features</td>
+<td>spotify:track:2fQrGHiQOvpL9UgPvtYy6G</td>
+<td align="right">0.376</td>
+<td align="right">856</td>
+<td align="right">235</td>
+<td align="right">82</td>
+<td>9/23/2017</td>
+<td align="right">2017</td>
+<td>2fQrGHiQOvpL9UgPvtYy6G</td>
+<td>Bank Account</td>
+<td>Bank Account</td>
+<td align="right">0.255</td>
+</tr>
+<tr>
+<td>P!nk</td>
+<td align="right">5305408</td>
+<td align="right">83</td>
+<td align="right">269600</td>
+<td align="right">0.0285</td>
+<td>https://api.spotify.com/v1/audio-analysis/0Qh38w01QRXK6KHIv0e3hb</td>
+<td align="right">0.489</td>
+<td align="right">269600</td>
+<td align="right">0.588</td>
+<td>0Qh38w01QRXK6KHIv0e3hb</td>
+<td align="right">2.11E-06</td>
+<td align="right">1</td>
+<td align="right">0.0906</td>
+<td align="right">-6.177</td>
+<td>1</td>
+<td align="right">0.0507</td>
+<td align="right">113.617</td>
+<td align="right">4</td>
+<td>https://api.spotify.com/v1/tracks/0Qh38w01QRXK6KHIv0e3hb</td>
+<td>audio_features</td>
+<td>spotify:track:0Qh38w01QRXK6KHIv0e3hb</td>
+<td align="right">0.187</td>
+<td align="right">357</td>
+<td align="right">107</td>
+<td align="right">78</td>
+<td>10/13/2017</td>
+<td align="right">2017</td>
+<td>0Qh38w01QRXK6KHIv0e3hb</td>
+<td>What About Us</td>
+<td>What About Us</td>
+<td align="right">0.725</td>
+</tr>
+</tbody></table>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>
