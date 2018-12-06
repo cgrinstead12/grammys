@@ -110,16 +110,28 @@
                                   <div class="profile">
                                       <div style="margin-bottom: 15px" class="row">
                                           
+                                          
+                                          <br>
+                                          <h2>Chart</h2>
+                                          <p>Above is the historical Grammy Winners, Nominees and Losers Chart. i.e. other top 100 songs that were “snubbed” and how they compare on the various song features.   
+                                            Based on our random forest feature importance rating, “feature.speechiness” was rated as our most important feature in determining a Grammy winning or losing artist. As you can see from the chart above, 
+                                            past Grammy winning songs tended to have relatively low “speechiness” (speechiness detects the presence of spoken words in a track.) and relatively lower unique word counts. 
+                                            </p>
+                                          <br>
                                           <div id="svgHere"></div>
                                           <br>
                                           <h2>Spotify Api</h2>
-                                          <p>Utilizing the Spotify API and Genius API, we setup our request for the various features from a list of songs from potential nominees.</p>
+                                          <p>Utilizing the Spotify API and Genius API, our pull was for the various features from a list of songs from potential nominees.</p>
                                           <br>
                                           <img src="{{ url_for('static', filename='images/mlmodel/ml4.jpg') }}">
                                           <br> 
                                           <br>
                                           <h2>Machine Learning Model</h2>
-                                          <p>With our dataset from 2010-2017 we were ready to train/fit the data to our model.</p>
+                                          <p>Using the scikit learn library’s Random Forest Classifier ensemble method, we trained the data and used it to determine the relative importance’s of each feature in our model. 
+                                        </p> <p>The random forest model consists of several simple classification “trees” that are built from subsets of the data and these independent trees make their own classification predictions.  
+                                            </p> <p>An independent decision tree is simply a series of decisions that are used to classify any individual record in a data set. Each of these independent prediction trees are then combined into one (an ensemble of trees), which is as good or better than any one individual classifier. 
+                                            </p>
+                                            <p>We chose the random forest model because it is capable of handling a large number of features and it is helpful in estimating which of our features are most important. In this model, “feature.speechiness” was determined our most important feature in predicting a Grammy winning song. </p>
                                           <br>
                                           <img src="{{ url_for('static', filename='images/mlmodel/ml1.jpg') }}">  
                                           <br>
@@ -132,8 +144,8 @@
                                           <br>
                                           <br>
                                           <h2>Results</h2>
-                                          <p>With our model trained, we fit a list of songs from 2018 and used the model to predict grammy winners. </p>
-                                          <p>Based on our results, Maroon 5 has a 43% chance to win a Grammy! </p>
+                                          <p>Once we fed in our historical data to train the model and get our feature relative importance’s, the next step was to feed in our new data from the Billboard top 100 songs of 2018 into the model to see which artists had the highest probability of winning a Grammy award. </p>
+                                          <p>We used the random forest model’s predict method and created our new data set which lists each artist’s tracks along with their probabilities of winning. From our model we found that Maroon 5’s “Girls Like You” has the highest chance of winning the Grammy for 2018 based on our models predictions using the  song features of Grammy award winners, nominees and Billboard top 100 songs from the last seven years.  </p>
 
                                           <br>
                                           <img src="{{ url_for('static', filename='images/mlmodel/ml3.jpg') }}">           
